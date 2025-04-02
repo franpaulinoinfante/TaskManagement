@@ -4,7 +4,7 @@ namespace TaskManagement.TaskViews.TaskViews;
 
 public record TaskItemView
 {
-    private List<TaskItemView> SubTask { get; set; } = new List<TaskItemView>();
+    private List<TaskItemView> SubTasks { get; set; } = new List<TaskItemView>();
 
     public int Id { get; set; }
     public required string Title { get; set; }
@@ -15,10 +15,10 @@ public record TaskItemView
     public required DateTime CreatedAt { get; set; }
     public required DateTime DueDate { get; set; }
 
-    public List<TaskItemView> SubTas => SubTask;
+    public List<TaskItemView> SubTask => SubTasks;
 
     public void AddSubTasks(TaskItemView item)
     {
-        SubTask.Add(item);
+        SubTasks.Add(item);
     }
 }

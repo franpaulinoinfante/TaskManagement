@@ -7,13 +7,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\TaskManagement.Domain\TaskManagement.Domain.csproj" />
     <ProjectReference Include="..\TaskManagement.Types\TaskManagement.Types.csproj" />
+    <ProjectReference Include="..\TaskManagement.Utils\TaskManagement.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="TaskQueueViews\" />
-    <Folder Include="TaskTreeViews\" />
     <Folder Include="TaskStackViews\" />
+    <Folder Include="TaskTreeViews\" />
   </ItemGroup>
 
 </Project>

@@ -2,7 +2,9 @@
 
 public enum Category
 {
-    Trabajo,
     Personal,
-    Estudios
+    Trabajo,
+    Estudios,
+    Hogar,
+    SaludBienestar,
 }

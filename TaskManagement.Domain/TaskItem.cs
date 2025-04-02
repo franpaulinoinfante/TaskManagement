@@ -31,8 +31,6 @@ public class TaskItem
     public DateTime CreatedAt { get; init; }
     public required DateTime DueDate { get; set; }
 
-    public List<TaskItem> SubTasks { get; set; } = new List<TaskItem>();
-
     public TaskItem Clone => new TaskItem
     {
         Id = this.Id,
@@ -44,9 +42,4 @@ public class TaskItem
         CreatedAt = this.CreatedAt,
         DueDate = this.DueDate,
     };
-
-    public void AddSubTask(TaskItem item)
-    {
-        SubTasks.Add(item);
-    }
 }

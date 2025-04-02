@@ -12,77 +12,29 @@ public class TaskManagementController
     private readonly TaskList _taskList;
     private readonly TaskStack _taskStack;
     private readonly TaskQueue _taskQueue;
-    private readonly List<TaskTree> _taskTrees;
 
     public TaskManagementController()
     {
         _taskList = new();
         _taskStack = new();
         _taskQueue = new();
-        _taskTrees = new();
-
-        new SeedTasks().LoadSeed(_taskList, _taskStack);
 
         LoadTreeView();
     }
 
-    public IReadOnlyList<TaskItemView> TaskTrees
-    {
-        get
-        {
-            LoadTreeView();
-            List<TaskItemView> tasksViews = new();
-            foreach (TaskItem taskItem in _taskList.Tasks)
-            {
-                TaskItemView taskItemView = new TaskItemView()
-                {
-                    Id = taskItem.Id,
-                    Title = taskItem.Title,
-                    Description = taskItem.Description,
-                    TaskState = taskItem.TaskState,
-                    Category = taskItem.Category,
-                    PriorityLevel = taskItem.PriorityLevel,
-                    CreatedAt = taskItem.CreatedAt,
-                    DueDate = taskItem.DueDate,
-                };
-
-                AddSubTasksToView(taskItemView, taskItem.SubTasks);
-
-                tasksViews.Add(taskItemView);
-            }
-
-            return tasksViews;
-        }
-    }
-
     private void LoadTreeView()
     {
-        foreach (TaskItem taskItem in _taskList.Tasks)
+
+        List<TaskItemCreateView> taskSeed = new SeedTasks().GetSeedTask();
+        foreach (TaskItemCreateView task in taskSeed)
         {
-            TaskTree taskTree = new TaskTree(taskItem);
-            _taskTrees.Add(taskTree);
+            AddTask(task);
         }
-    }
 
-    private void AddSubTasksToView(TaskItemView parentView, List<TaskItem> subTasks)
-    {
-        foreach (TaskItem subTask in subTasks)
+        List<TaskItemCreateView> subTaksSeed = new SeedSubTasks().GetSeedTask();
+        foreach (TaskItemCreateView subTask in subTaksSeed)
         {
-            TaskItemView subTaskView = new TaskItemView()
-            {
-                Id = subTask.Id,
-                Title = subTask.Title,
-                Description = subTask.Description,
-                TaskState = subTask.TaskState,
-                Category = subTask.Category,
-                PriorityLevel = subTask.PriorityLevel,
-                CreatedAt = subTask.CreatedAt,
-                DueDate = subTask.DueDate,
-            };
-
-            parentView.AddSubTasks(subTaskView);
-
-            AddSubTasksToView(subTaskView, subTask.SubTasks);
+            AddSubTask(subTask);
         }
     }
 
@@ -104,11 +56,11 @@ public class TaskManagementController
         };
 
         _taskList.Add(taskItem);
-        _taskStack.Push(ActionOnTask.Create, taskItem);
+        _taskStack.Push(ActionOnTask.Create, taskItem.Clone);
 
-        if (taskItem.PriorityLevel == Types.PriorityLevel.Urgent)
+        if (taskItem.PriorityLevel == PriorityLevel.Urgent)
         {
-            _taskQueue.Enqueue(taskItem);
+            _taskQueue.Enqueue(taskItem.Clone);
         }
     }
 
@@ -119,13 +71,7 @@ public class TaskManagementController
             throw new ArgumentNullException();
         }
 
-        TaskItem? taskItemToUpdate = _taskList.GetTask(createView.Id);
-        if (taskItemToUpdate is null)
-        {
-            throw new InvalidOperationException("Tarea a modificar no encontrada");
-        }
-
-        taskItemToUpdate.AddSubTask(new TaskItem
+        TaskItem taskItem = new TaskItem()
         {
             Title = createView.Title,
             Description = createView.Description,
@@ -133,12 +79,19 @@ public class TaskManagementController
             Category = createView.Category,
             PriorityLevel = createView.PriorityLevel,
             DueDate = createView.DueDate
-        });
+        };
 
-        _taskStack.Push(ActionOnTask.Update, taskItemToUpdate);
+        TaskItem? taskItemToUpdate = _taskList.GetTask(createView.Id);
+        if (taskItemToUpdate is null)
+        {
+            throw new InvalidOperationException("Tarea no encontrada, no se puede agregar una subtarea");
+        }
+
+        _taskList.Update(taskItemToUpdate);
+        _taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
     }
 
-    public void Update(TaskItemUpdateView updateView)
+    public void UpdateTask(TaskItemUpdateView updateView)
     {
         if (updateView is null)
         {
@@ -179,22 +132,6 @@ public class TaskManagementController
         _taskList.Remove(taskToRemove);
     }
 
-    public void Undo()
-    {
-        if (_taskStack.HistoryTasks.Count > 0)
-        {
-            _taskStack.Undo();
-        }
-    }
-
-    public void Redo()
-    {
-        if (_taskStack.RedoTasks.Count > 0)
-        {
-            _taskStack.Redo();
-        }
-    }
-
     public void UpdateState(UpdateTaskStateView updateTaskStateView)
     {
         if (updateTaskStateView == null)
@@ -213,7 +150,7 @@ public class TaskManagementController
         _taskList.Update(taskItem);
     }
 
-    public void MarkUrgent(UpdateLavelStateView updateLavelStateView)
+    public void MarkTaskUrgent(UpdateLavelStateView updateLavelStateView)
     {
         if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Urgent)
         {
@@ -233,7 +170,7 @@ public class TaskManagementController
         _taskQueue.Enqueue(taskItem);
     }
 
-    public void MarkNormal(UpdateLavelStateView updateLavelStateView)
+    public void MarkTaskNormal(UpdateLavelStateView updateLavelStateView)
     {
         if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Normal)
         {
@@ -251,5 +188,21 @@ public class TaskManagementController
         _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
         _taskList.Update(taskItem);
         _taskQueue.Enqueue(taskItem);
+    }
+
+    public void Undo()
+    {
+        if (_taskStack.HistoryTasks.Count > 0)
+        {
+            _taskStack.Undo();
+        }
+    }
+
+    public void Redo()
+    {
+        if (_taskStack.RedoTasks.Count > 0)
+        {
+            _taskStack.Redo();
+        }
     }
 }

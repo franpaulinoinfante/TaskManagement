@@ -1,39 +1,26 @@
-﻿using TaskManagement.Domain;
+﻿using TaskManagement.TaskViews.TaskListViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
 internal class SeedTasks
 {
-
-    internal void LoadSeed(Domain.Implementations.TaskList taskList, Domain.Implementations.TaskStack taskStack)
+    internal List<TaskItemCreateView> GetSeedTask()
     {
-        TaskItem taskItem1 = new TaskItem()
+        List<TaskItemCreateView> taskItems = new List<TaskItemCreateView>();
+
+        TaskItemCreateView taskItem1 = new TaskItemCreateView()
         {
-            Id = 1,
             Title = "Test 1",
             Description = "Probando funciones",
-            TaskState = TaskState.Todo,
+            TaskState = TaskState.ToDo,
             Category = Category.Trabajo,
             PriorityLevel = PriorityLevel.Urgent,
             DueDate = DateTime.Now
         };
+        taskItems.Add(taskItem1);
 
-        taskItem1.AddSubTask(new TaskItem
+        TaskItemCreateView taskItem2 = new TaskItemCreateView()
         {
-            Title = "SubTest 1",
-            Description = "Sub Probando funciones 1",
-            TaskState = TaskState.Done,
-            Category = Category.Personal,
-            PriorityLevel = PriorityLevel.Normal,
-            DueDate = DateTime.Now
-        });
-
-        taskList.Add(taskItem1);
-        taskStack.Push(ActionOnTask.Create, taskItem1);
-
-        TaskItem taskItem2 = new TaskItem()
-        {
-            Id = 2,
             Title = "Test 2",
             Description = "Sub Probando funciones 2",
             TaskState = TaskState.Done,
@@ -41,23 +28,10 @@ internal class SeedTasks
             PriorityLevel = PriorityLevel.Normal,
             DueDate = DateTime.Now
         };
+        taskItems.Add(taskItem2);
 
-        taskItem2.AddSubTask(new TaskItem
+        TaskItemCreateView taskItem3 = new TaskItemCreateView()
         {
-            Title = "SubTest 2",
-            Description = "Sub Probando funciones 2",
-            TaskState = TaskState.InProgress,
-            Category = Category.Personal,
-            PriorityLevel = PriorityLevel.Urgent,
-            DueDate = DateTime.Now,
-        });
-
-        taskList.Add(taskItem2);
-        taskStack.Push(ActionOnTask.Create, taskItem2);
-
-        TaskItem taskItem3 = new TaskItem()
-        {
-            Id = 3,
             Title = "Test 3",
             Description = "Probando funciones",
             TaskState = TaskState.InProgress,
@@ -65,28 +39,66 @@ internal class SeedTasks
             PriorityLevel = PriorityLevel.Urgent,
             DueDate = DateTime.Now,
         };
+        taskItems.Add(taskItem3);
 
-        taskItem3.AddSubTask(new TaskItem
+        return taskItems;
+    }
+}
+
+internal class SeedSubTasks
+{
+    internal List<TaskItemCreateView> GetSeedTask()
+    {
+        List<TaskItemCreateView> taskItems = new List<TaskItemCreateView>();
+
+        TaskItemCreateView subTaskItem1 = new TaskItemCreateView()
         {
-            Title = "SubTest 3",
-            Description = "Sub Probando funciones 3",
+            Id = 1,
+            Title = "SubTest 1",
+            Description = "Sub Probando funciones 1",
+            TaskState = TaskState.Done,
+            Category = Category.Personal,
+            PriorityLevel = PriorityLevel.Normal,
+            DueDate = DateTime.Now
+        };
+        taskItems.Add(subTaskItem1);
+
+        TaskItemCreateView subTaskItem2 = new TaskItemCreateView()
+        {
+            Id = 2,
+            Title = "SubTest 2",
+            Description = "Sub Probando funciones 2",
+            TaskState = TaskState.InProgress,
+            Category = Category.Personal,
+            PriorityLevel = PriorityLevel.Urgent,
+            DueDate = DateTime.Now
+        };
+        taskItems.Add(subTaskItem2);
+
+        TaskItemCreateView subTaksItem31 = new TaskItemCreateView()
+        {
+            Id = 3,
+            Title = "SubTest 3-1",
+            Description = "Sub Probando funciones 3-1",
+            TaskState = TaskState.ToDo,
+            Category = Category.Personal,
+            PriorityLevel = PriorityLevel.Urgent,
+            DueDate = DateTime.Now,
+        };
+        taskItems.Add(subTaksItem31);
+
+        TaskItemCreateView subTaksItem32 = new TaskItemCreateView()
+        {
+            Id = 3,
+            Title = "SubTest 3-2",
+            Description = "Sub Probando funciones 3-2",
             TaskState = TaskState.InProgress,
             Category = Category.Personal,
             PriorityLevel = PriorityLevel.Normal,
             DueDate = DateTime.Now,
-        });
+        };
+        taskItems.Add(subTaksItem32);
 
-        taskItem3.AddSubTask(new TaskItem
-        {
-            Title = "SubTest 3",
-            Description = "Sub Probando funciones 3",
-            TaskState = TaskState.InProgress,
-            Category = Category.Personal,
-            PriorityLevel = PriorityLevel.Normal,
-            DueDate = DateTime.Now,
-        });
-
-        taskList.Add(taskItem3);
-        taskStack.Push(ActionOnTask.Create, taskItem3);
+        return taskItems;
     }
 }
