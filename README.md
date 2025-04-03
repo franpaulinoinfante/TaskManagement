@@ -66,3 +66,6 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 
 ### Delete Task
 ![image](https://github.com/user-attachments/assets/d9a3decd-2d71-4d2f-a06e-bfebb9bcc2d5)
+
+### Push Task Action History
+![image](https://github.com/user-attachments/assets/de08daae-74c9-4023-be0c-4ad6be35f74b)
