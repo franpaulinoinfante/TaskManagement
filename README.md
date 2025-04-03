@@ -51,4 +51,5 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 ¡Buena suerte y feliz codificación!
 
 ## Domain Model
-![image](https://github.com/user-attachments/assets/924b3f72-2545-487b-a74a-7a903367af08)
+![image](https://github.com/user-attachments/assets/ef782010-1ce9-4d8d-a9a2-fe5d3faac535)
+
