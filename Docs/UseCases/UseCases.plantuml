@@ -33,4 +33,6 @@ User --> UC102
 User --> UC103
     UC103 ..> UC104 : <<include>>
     UC103 ..> UC201 : <<include>>
+    
+    UC201 ..> UC204 : <<include>>
 @enduml

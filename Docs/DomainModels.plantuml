@@ -15,6 +15,9 @@
     TaskItemActionHistoryStack *--> HistoryTaskActionStack
     TaskItemActionHistoryStack *--> RedoTaskActionListStack
 
+    HistoryTaskActionStack o--> "0..*" TaskItem
+    RedoTaskActionListStack o--> "0..*" TaskItem
+
     TaskItemCategoryTree o--> Category : in category and sub category
     TaskItemCategoryTree --> TaskItemList
 
