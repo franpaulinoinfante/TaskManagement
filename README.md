@@ -63,3 +63,6 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 
 ### Update Task
 ![image](https://github.com/user-attachments/assets/d472238d-148c-43f1-a054-786c60bb85c0)
+
+### Delete Task
+![image](https://github.com/user-attachments/assets/d9a3decd-2d71-4d2f-a06e-bfebb9bcc2d5)
