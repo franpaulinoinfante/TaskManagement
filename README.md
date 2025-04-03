@@ -54,8 +54,9 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 ![image](https://github.com/user-attachments/assets/ef782010-1ce9-4d8d-a9a2-fe5d3faac535)
 
 ## Use Cases Diagram
-![image](https://github.com/user-attachments/assets/099fc2f0-945a-421f-b2ce-849b2e0078e6)
+![image](https://github.com/user-attachments/assets/98247c92-72ad-4065-81b1-54281a59b274)
 
 ### Use Cases Specifications
+![image](https://github.com/user-attachments/assets/075c58d6-da4f-49c4-a24b-b11fd35c008d)
 
 
