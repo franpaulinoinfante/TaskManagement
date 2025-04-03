@@ -53,3 +53,9 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 ## Domain Model
 ![image](https://github.com/user-attachments/assets/ef782010-1ce9-4d8d-a9a2-fe5d3faac535)
 
+## Use Cases Diagram
+![image](https://github.com/user-attachments/assets/099fc2f0-945a-421f-b2ce-849b2e0078e6)
+
+### Use Cases Specifications
+
+
