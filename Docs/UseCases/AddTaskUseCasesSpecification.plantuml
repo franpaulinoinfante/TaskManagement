@@ -5,7 +5,6 @@ state ":DisplayTaskByPriorityAndDueDate" as DisplayTaskByPriorityAndDueDate
 state " " as A
 state " " as B
 state " " as C
-state " " as D
 
 state isValidDate <<choice>>
 
