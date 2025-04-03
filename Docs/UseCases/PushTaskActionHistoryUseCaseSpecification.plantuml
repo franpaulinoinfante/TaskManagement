@@ -1,0 +1,26 @@
+@startuml PushTaskActionUseCaseSpecification
+    title Push Task Action History Use Case Specification
+
+state " " as A
+state " " as B
+
+state selection <<choice>>
+
+state ":AddTaskUseCase" as AddTaskUseCase
+state ":UpdateTaskUseCase" as UpdateTaskUseCase
+state ":DeleteTaskUseCase" as DeleteTaskUseCase
+state ":Display Task Action History" as DisplayTaskActionHistory
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita agregar una acción al historia stack
+    A --> selection : sistema le permite seleccionar la acción a guardar y\n le permite guardar la acción
+    selection --> AddTaskUseCase : usuario selecciona
+    selection --> UpdateTaskUseCase : usuario selecciona
+    selection --> DeleteTaskUseCase : usuario selecciona
+        AddTaskUseCase --> B
+        UpdateTaskUseCase --> B
+        DeleteTaskUseCase --> B
+    B --> DisplayTaskActionHistory : sistema muestra las 
+
+DisplayTaskActionHistory --> [*] 
+@enduml

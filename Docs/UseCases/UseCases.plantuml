@@ -9,7 +9,7 @@ usecase "Update Task" as UC102
 usecase "Delete Task" as UC103
 usecase "Display Task By Priority And DueDate" as UC104
 
-usecase "Push Task Action" as UC201
+usecase "Push Task Action History" as UC201
 usecase "Undo" as UC202
 usecase "Redo" as UC203
 usecase "Display Task Action History" as UC204
@@ -26,8 +26,11 @@ usecase "Display Task In Category Tree" as UC501
 
 User --> UC101
     UC101 ..> UC104 : <<include>>
+    UC101 ..> UC201 : <<include>>
 User --> UC102
     UC102 ..> UC104 : <<include>>
+    UC102 ..> UC201 : <<include>>
 User --> UC103
     UC103 ..> UC104 : <<include>>
+    UC103 ..> UC201 : <<include>>
 @enduml
