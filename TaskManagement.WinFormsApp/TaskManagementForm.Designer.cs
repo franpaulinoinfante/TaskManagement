@@ -49,7 +49,7 @@ partial class TaskManagementForm
         button2 = new Button();
         button1 = new Button();
         listView3 = new ListView();
-        listView2 = new ListView();
+        listTaskHistoryStack = new ListView();
         tabQueue = new TabPage();
         tabTree = new TabPage();
         cbbCategory = new ComboBox();
@@ -93,7 +93,7 @@ partial class TaskManagementForm
         txtTitle.Location = new Point(180, 12);
         txtTitle.Name = "txtTitle";
         txtTitle.Size = new Size(489, 27);
-        txtTitle.TabIndex = 3;
+        txtTitle.TabIndex = 1;
         // 
         // label2
         // 
@@ -143,7 +143,7 @@ partial class TaskManagementForm
         txtDescription.Name = "txtDescription";
         txtDescription.ScrollBars = ScrollBars.Vertical;
         txtDescription.Size = new Size(755, 68);
-        txtDescription.TabIndex = 10;
+        txtDescription.TabIndex = 6;
         // 
         // dtpDueDate
         // 
@@ -151,7 +151,7 @@ partial class TaskManagementForm
         dtpDueDate.Location = new Point(408, 43);
         dtpDueDate.Name = "dtpDueDate";
         dtpDueDate.Size = new Size(261, 27);
-        dtpDueDate.TabIndex = 12;
+        dtpDueDate.TabIndex = 3;
         // 
         // rdbToDo
         // 
@@ -160,10 +160,10 @@ partial class TaskManagementForm
         rdbToDo.Enabled = false;
         rdbToDo.Location = new Point(6, 26);
         rdbToDo.Name = "rdbToDo";
-        rdbToDo.Size = new Size(91, 24);
+        rdbToDo.Size = new Size(92, 24);
         rdbToDo.TabIndex = 13;
         rdbToDo.TabStop = true;
-        rdbToDo.Text = "Por Hacer";
+        rdbToDo.Text = "Pendiente";
         rdbToDo.UseVisualStyleBackColor = true;
         // 
         // rdbInProgress
@@ -183,9 +183,9 @@ partial class TaskManagementForm
         rdbDone.Enabled = false;
         rdbDone.Location = new Point(6, 83);
         rdbDone.Name = "rdbDone";
-        rdbDone.Size = new Size(97, 24);
+        rdbDone.Size = new Size(92, 24);
         rdbDone.TabIndex = 15;
-        rdbDone.Text = "Terminada";
+        rdbDone.Text = "Realizada";
         rdbDone.UseVisualStyleBackColor = true;
         // 
         // tabControl1
@@ -199,7 +199,7 @@ partial class TaskManagementForm
         tabControl1.Name = "tabControl1";
         tabControl1.SelectedIndex = 0;
         tabControl1.Size = new Size(905, 431);
-        tabControl1.TabIndex = 17;
+        tabControl1.TabIndex = 10;
         // 
         // tabList
         // 
@@ -231,7 +231,7 @@ partial class TaskManagementForm
         tabStack.Controls.Add(button2);
         tabStack.Controls.Add(button1);
         tabStack.Controls.Add(listView3);
-        tabStack.Controls.Add(listView2);
+        tabStack.Controls.Add(listTaskHistoryStack);
         tabStack.Location = new Point(4, 24);
         tabStack.Name = "tabStack";
         tabStack.Padding = new Padding(3);
@@ -244,7 +244,7 @@ partial class TaskManagementForm
         // 
         label10.AutoSize = true;
         label10.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label10.Location = new Point(586, 17);
+        label10.Location = new Point(704, 3);
         label10.Name = "label10";
         label10.Size = new Size(50, 20);
         label10.TabIndex = 25;
@@ -254,7 +254,7 @@ partial class TaskManagementForm
         // 
         label8.AutoSize = true;
         label8.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label8.Location = new Point(61, 17);
+        label8.Location = new Point(134, 3);
         label8.Name = "label8";
         label8.Size = new Size(59, 20);
         label8.TabIndex = 24;
@@ -262,7 +262,7 @@ partial class TaskManagementForm
         // 
         // button2
         // 
-        button2.Location = new Point(263, 180);
+        button2.Location = new Point(344, 180);
         button2.Name = "button2";
         button2.Size = new Size(208, 54);
         button2.TabIndex = 3;
@@ -271,7 +271,7 @@ partial class TaskManagementForm
         // 
         // button1
         // 
-        button1.Location = new Point(263, 71);
+        button1.Location = new Point(344, 72);
         button1.Name = "button1";
         button1.Size = new Size(208, 54);
         button1.TabIndex = 2;
@@ -280,19 +280,21 @@ partial class TaskManagementForm
         // 
         // listView3
         // 
-        listView3.Location = new Point(519, 43);
+        listView3.Location = new Point(568, 26);
         listView3.Name = "listView3";
-        listView3.Size = new Size(197, 298);
+        listView3.Size = new Size(321, 366);
         listView3.TabIndex = 1;
         listView3.UseCompatibleStateImageBehavior = false;
         // 
-        // listView2
+        // listTaskHistoryStack
         // 
-        listView2.Location = new Point(8, 40);
-        listView2.Name = "listView2";
-        listView2.Size = new Size(197, 298);
-        listView2.TabIndex = 0;
-        listView2.UseCompatibleStateImageBehavior = false;
+        listTaskHistoryStack.FullRowSelect = true;
+        listTaskHistoryStack.Location = new Point(6, 26);
+        listTaskHistoryStack.Name = "listTaskHistoryStack";
+        listTaskHistoryStack.Size = new Size(321, 364);
+        listTaskHistoryStack.TabIndex = 0;
+        listTaskHistoryStack.UseCompatibleStateImageBehavior = false;
+        listTaskHistoryStack.View = View.Details;
         // 
         // tabQueue
         // 
@@ -316,12 +318,13 @@ partial class TaskManagementForm
         // 
         // cbbCategory
         // 
+        cbbCategory.DropDownStyle = ComboBoxStyle.DropDownList;
         cbbCategory.Enabled = false;
         cbbCategory.FormattingEnabled = true;
         cbbCategory.Location = new Point(97, 45);
         cbbCategory.Name = "cbbCategory";
         cbbCategory.Size = new Size(201, 28);
-        cbbCategory.TabIndex = 18;
+        cbbCategory.TabIndex = 2;
         // 
         // rdbNormal
         // 
@@ -353,7 +356,7 @@ partial class TaskManagementForm
         btnSave.Location = new Point(178, 178);
         btnSave.Name = "btnSave";
         btnSave.Size = new Size(75, 28);
-        btnSave.TabIndex = 24;
+        btnSave.TabIndex = 7;
         btnSave.Text = "Guardar";
         btnSave.UseVisualStyleBackColor = true;
         btnSave.Click += btnSave_Click;
@@ -366,7 +369,7 @@ partial class TaskManagementForm
         groupBox1.Location = new Point(773, 12);
         groupBox1.Name = "groupBox1";
         groupBox1.Size = new Size(120, 120);
-        groupBox1.TabIndex = 25;
+        groupBox1.TabIndex = 5;
         groupBox1.TabStop = false;
         groupBox1.Text = "Estado";
         // 
@@ -377,7 +380,7 @@ partial class TaskManagementForm
         groupBox2.Location = new Point(675, 12);
         groupBox2.Name = "groupBox2";
         groupBox2.Size = new Size(92, 89);
-        groupBox2.TabIndex = 26;
+        groupBox2.TabIndex = 4;
         groupBox2.TabStop = false;
         groupBox2.Text = "Prioridad";
         // 
@@ -387,7 +390,7 @@ partial class TaskManagementForm
         btnUpdate.Location = new Point(95, 178);
         btnUpdate.Name = "btnUpdate";
         btnUpdate.Size = new Size(75, 28);
-        btnUpdate.TabIndex = 27;
+        btnUpdate.TabIndex = 8;
         btnUpdate.Text = "Editar";
         btnUpdate.UseVisualStyleBackColor = true;
         btnUpdate.Click += btnUpdate_Click;
@@ -397,7 +400,7 @@ partial class TaskManagementForm
         btnNew.Location = new Point(12, 178);
         btnNew.Name = "btnNew";
         btnNew.Size = new Size(75, 28);
-        btnNew.TabIndex = 28;
+        btnNew.TabIndex = 0;
         btnNew.Text = "Nuevo";
         btnNew.UseVisualStyleBackColor = true;
         btnNew.Click += btnNew_Click;
@@ -407,7 +410,7 @@ partial class TaskManagementForm
         btnDelete.Location = new Point(261, 178);
         btnDelete.Name = "btnDelete";
         btnDelete.Size = new Size(75, 28);
-        btnDelete.TabIndex = 29;
+        btnDelete.TabIndex = 9;
         btnDelete.Text = "Eliminar";
         btnDelete.UseVisualStyleBackColor = true;
         btnDelete.Click += btnDelete_Click;
@@ -483,7 +486,7 @@ partial class TaskManagementForm
     private Button button2;
     private Button button1;
     private ListView listView3;
-    private ListView listView2;
+    private ListView listTaskHistoryStack;
     private Button btnSave;
     private GroupBox groupBox1;
     private GroupBox groupBox2;

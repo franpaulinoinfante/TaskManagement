@@ -14,7 +14,7 @@ public class TaskStack
         _redoTasks = new Stack<(ActionOnTask, TaskItem)>();
     }
 
-    public IReadOnlyList<(ActionOnTask, TaskItem)> HistoryTasks => _historyTasks.ToList();
+    public IReadOnlyList<(ActionOnTask, TaskItem)> HistoryTaskActions => _historyTasks.ToList();
 
     public IReadOnlyList<(ActionOnTask, TaskItem)> RedoTasks => _redoTasks.ToList();
 

@@ -167,6 +167,11 @@ public partial class TaskManagementForm : Form
         listTaksItems.Columns.Add("Estado", 100);
         listTaksItems.Columns.Add("Categoria", 175);
         listTaksItems.Columns.Add("Fecha Vencimiento", 160);
+
+        listTaskHistoryStack.View = View.Details;
+        listTaskHistoryStack.Columns.Add("Id", 50);
+        listTaskHistoryStack.Columns.Add("Title", 150);
+        listTaskHistoryStack.Columns.Add("Acción", 100);
     }
 
     private void TaskManagementForm_Load(object sender, EventArgs e)
@@ -234,6 +239,8 @@ public partial class TaskManagementForm : Form
         finally
         {
             DisabledFields();
+            ClearFields();
+            DisplayTaskActionHistory();
         }
 
         DisplayTaskByPriorityAndDueDate();
@@ -312,6 +319,8 @@ public partial class TaskManagementForm : Form
 
     private void btnNew_Click(object sender, EventArgs e)
     {
+        _isNew = true;
+
         ClearFields();
         EnabledFields();
 
@@ -327,6 +336,7 @@ public partial class TaskManagementForm : Form
         txtId.Clear();
         txtTitle.Clear();
         txtDescription.Clear();
+        rdbToDo.Checked = true;
         cbbCategory.SelectedIndex = 0;
     }
 
@@ -410,6 +420,37 @@ public partial class TaskManagementForm : Form
             {
                 DisplayTaskByPriorityAndDueDate();
             }
+
+            DisplayTaskActionHistory();
+        }
+    }
+
+    private void DisplayTaskActionHistory()
+    {
+        listTaskHistoryStack.Items.Clear();
+
+        try
+        {
+            var taskActionsHistory = _taskManagementController.TaskActionsHistory;
+            if (!taskActionsHistory.Any())
+            {
+                MessageBox.Show("No se ha creado tarea", "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                return;
+            }
+
+            foreach (var taskItem in taskActionsHistory)
+            {
+                listTaskHistoryStack.Items.Add(new ListViewItem(new[]
+                {
+                    taskItem.Id.ToString(),
+                    taskItem.Title,
+                    taskItem.ActionOnTask.GetMesage()
+                }));
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
 }

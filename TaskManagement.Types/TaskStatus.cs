@@ -11,7 +11,7 @@ public static class TaskStateExtension
 {
     private static string[] Messages =
     {
-        "Por Hacer",
+        "Pendiente",
         "En Progreso",
         "Realizada"
     };

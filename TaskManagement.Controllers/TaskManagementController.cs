@@ -2,6 +2,7 @@
 using TaskManagement.Domain.Implementations;
 using TaskManagement.TaskViews;
 using TaskManagement.TaskViews.TaskListViews;
+using TaskManagement.TaskViews.TaskStackViews;
 using TaskManagement.TaskViews.TaskViews;
 using TaskManagement.Types;
 
@@ -85,6 +86,26 @@ public class TaskManagementController
         }
     }
 
+    public IReadOnlyList<TaskActionsView> TaskActionsHistory
+    {
+        get
+        {
+            var historyTaskActions = new List<TaskActionsView>();
+            var taskActions = _taskStack.HistoryTaskActions;
+            foreach (var action in taskActions)
+            {
+                historyTaskActions.Add(new TaskActionsView()
+                {
+                    Id = action.Item2.Id,
+                    Title = action.Item2.Title,
+                    ActionOnTask = action.Item1
+                });
+            }
+
+            return historyTaskActions;
+        }
+    }
+
     public void AddTask(TaskItemCreateView createView)
     {
         if (createView is null)
@@ -103,7 +124,7 @@ public class TaskManagementController
         };
 
         _taskList.Add(taskItem);
-        //_taskStack.Push(ActionOnTask.Create, taskItem.Clone);
+        _taskStack.Push(ActionOnTask.Create, taskItem.Clone);
 
         //if (taskItem.PriorityLevel == PriorityLevel.Urgent)
         //{
@@ -158,7 +179,7 @@ public class TaskManagementController
         taskItemToUpdate.PriorityLevel = updateView.PriorityLevel;
         taskItemToUpdate.DueDate = updateView.DueDate;
 
-        //_taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
+        _taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
         _taskList.Update(taskItemToUpdate);
 
         //if (taskItemToUpdate.PriorityLevel != PriorityLevel.Urgent)
@@ -244,7 +265,7 @@ public class TaskManagementController
 
     public void Undo()
     {
-        if (_taskStack.HistoryTasks.Count > 0)
+        if (_taskStack.HistoryTaskActions.Count > 0)
         {
             _taskStack.Undo();
         }
