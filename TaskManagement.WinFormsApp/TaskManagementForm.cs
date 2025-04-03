@@ -319,6 +319,7 @@ public partial class TaskManagementForm : Form
         rdbDone.Enabled = false;
         btnNew.Enabled = false;
         btnUpdate.Enabled = false;
+        btnDelete.Enabled = false;
     }
 
     private void ClearFields()
@@ -359,12 +360,14 @@ public partial class TaskManagementForm : Form
 
         btnUpdate.Enabled = false;
         btnNew.Enabled = false;
+        btnDelete.Enabled = false;
     }
 
     private void DisabledFields()
     {
         btnNew.Enabled = true;
         btnUpdate.Enabled = true;
+        btnDelete.Enabled = true;
 
         btnSave.Enabled = false;
 
@@ -379,5 +382,34 @@ public partial class TaskManagementForm : Form
         rdbDone.Enabled = false;
 
         btnNew.Focus();
+    }
+
+    private void btnDelete_Click(object sender, EventArgs e)
+    {
+        if ((listTaksItems.SelectedItems.Count == 0))
+        {
+            MessageBox.Show("No ha seleccionado una tarea", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        try
+        {
+            _taskManagementController.DeleteTask(new TaskItemRemoveView() { Id = Id });
+        }
+        catch (ArgumentNullException ex)
+        {
+            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message, "Información!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+        finally
+        {
+            if (listTaksItems.Items.Count > 0)
+            {
+                DisplayTaskByPriorityAndDueDate();
+            }
+        }
     }
 }

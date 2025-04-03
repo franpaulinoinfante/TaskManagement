@@ -60,6 +60,7 @@ partial class TaskManagementForm
         groupBox2 = new GroupBox();
         btnUpdate = new Button();
         btnNew = new Button();
+        btnDelete = new Button();
         tabControl1.SuspendLayout();
         tabList.SuspendLayout();
         tabStack.SuspendLayout();
@@ -349,7 +350,7 @@ partial class TaskManagementForm
         // btnSave
         // 
         btnSave.Enabled = false;
-        btnSave.Location = new Point(180, 178);
+        btnSave.Location = new Point(178, 178);
         btnSave.Name = "btnSave";
         btnSave.Size = new Size(75, 28);
         btnSave.TabIndex = 24;
@@ -383,7 +384,7 @@ partial class TaskManagementForm
         // btnUpdate
         // 
         btnUpdate.Enabled = false;
-        btnUpdate.Location = new Point(93, 178);
+        btnUpdate.Location = new Point(95, 178);
         btnUpdate.Name = "btnUpdate";
         btnUpdate.Size = new Size(75, 28);
         btnUpdate.TabIndex = 27;
@@ -401,11 +402,22 @@ partial class TaskManagementForm
         btnNew.UseVisualStyleBackColor = true;
         btnNew.Click += btnNew_Click;
         // 
+        // btnDelete
+        // 
+        btnDelete.Location = new Point(261, 178);
+        btnDelete.Name = "btnDelete";
+        btnDelete.Size = new Size(75, 28);
+        btnDelete.TabIndex = 29;
+        btnDelete.Text = "Eliminar";
+        btnDelete.UseVisualStyleBackColor = true;
+        btnDelete.Click += btnDelete_Click;
+        // 
         // TaskManagementForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
         ClientSize = new Size(905, 643);
+        Controls.Add(btnDelete);
         Controls.Add(btnNew);
         Controls.Add(btnUpdate);
         Controls.Add(groupBox2);
@@ -477,4 +489,5 @@ partial class TaskManagementForm
     private GroupBox groupBox2;
     private Button btnUpdate;
     private Button btnNew;
+    private Button btnDelete;
 }

@@ -167,7 +167,7 @@ public class TaskManagementController
         //}
     }
 
-    public void RemoveTask(TaskItemRemoveView removeView)
+    public void DeleteTask(TaskItemRemoveView removeView)
     {
         if (removeView is null || removeView.Id <= 0)
         {
