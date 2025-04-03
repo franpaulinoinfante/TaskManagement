@@ -49,3 +49,6 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 - La interfaz de usuario puede ser de consola, gráfica o web, según la preferencia de los estudiantes.
 - Considera la posibilidad de utilizar herramientas de control de versiones (como Git) para gestionar el desarrollo del proyecto.
 ¡Buena suerte y feliz codificación!
+
+## Domain Model
+![image](https://github.com/user-attachments/assets/924b3f72-2545-487b-a74a-7a903367af08)
