@@ -69,3 +69,7 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 
 ### Push Task Action History
 ![image](https://github.com/user-attachments/assets/de08daae-74c9-4023-be0c-4ad6be35f74b)
+
+### Undo 
+![image](https://github.com/user-attachments/assets/67e7dff2-8d6b-4ac0-abe8-e01cc96edd28)
+
