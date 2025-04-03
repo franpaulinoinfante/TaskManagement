@@ -1,0 +1,98 @@
+@startuml DomainModel
+    title Task Management Vocabulary
+
+    TaskManagement *--> TaskItem
+    TaskManagement *--> TaskItemList
+    TaskManagement *--> TaskItemActionHistoryStack
+    TaskManagement *--> TaskItemUrgentQueue
+    TaskManagement *--> TaskItemCategoryTree
+
+    TaskItemList o--> "0..*" TaskItem : contains
+    TaskItemActionHistoryStack o--> "0..*" TaskItem : record actions
+    TaskItemUrgentQueue o--> "0..*" TaskItem : holds task by urgents
+    TaskItemCategoryTree o--> "0..*" TaskItem : display 
+
+    TaskItemActionHistoryStack *--> HistoryTaskActionStack
+    TaskItemActionHistoryStack *--> RedoTaskActionListStack
+
+    TaskItemCategoryTree o--> Category : in category and sub category
+    TaskItemCategoryTree --> TaskItemList
+
+    TaskItem *--> PriorityLeve
+    TaskItem *--> TaskStatus
+    TaskItem *--> Category
+
+    PriorityLeve <|-- Normal
+    PriorityLeve <|-- Urgent
+
+    TaskStatus <|-- ToDo
+    TaskStatus <|-- InProgress
+    TaskStatus <|-- Done
+
+    enum Category{
+        +📂Personal
+        +🎯 Personal Development
+        +📅 Goals and Planning
+        +📖 Self-Learning
+        +📓 Journaling and Reflections
+        +🔄 Habits and Routines
+        +📂Work
+        +📝Meetings
+        +📊Reports
+        +💻Software Development
+        +📈Data Analysis
+        +🖥️ Presentations
+        +📂Studies
+        +📚 Tasks and Projects
+        +📝Exams
+        +📖Pending Readings
+        +🎓 Classes and Courses
+        +📂Home
+        +🏡 Cleaning
+        +🛒 Household Shopping
+        +🔧 Maintenance
+        +💰 Utility Payments
+        +📂Health and Wellness
+        +🏥 Medical Appointments
+        +🏋️ Exercise
+        +🍎 Nutrition
+        +😴Rest See More
+    }
+
+    class TaskItem{
+        -id : int
+        -title : string
+        -description: string
+        -dueDate : DateTime
+    }
+
+@enduml
+
+📂Tasks
+├── 📂Work
+│ ├── 📝Meetings
+│ ├── 📊Reports
+│ ├── 💻Software Development
+│ ├── 📈Data Analysis
+│ ├── 🖥️ Presentations
+├── 📂Studies
+│ ├── 📚 Tasks and Projects
+│ ├── 📝Exams
+│ ├── 📖Pending Readings
+│ ├── 🎓 Classes and Courses
+├── 📂Home
+│ ├── 🏡 Cleaning
+│ ├── 🛒 Household Shopping
+│ ├── 🔧 Maintenance
+│ ├── 💰 Utility Payments
+├── 📂 Health and Wellness
+│ ├── 🏥 Medical Appointments
+│ ├── 🏋️ Exercise
+│ ├── 🍎 Nutrition
+│ ├── 😴Rest See More
+├── 📂 Personal
+│ ├── 🎯 Personal Development
+│ ├── 📅 Goals and Planning
+│ ├── 📖 Self-Learning
+│ ├── 📓 Journaling and Reflections
+│ ├── 🔄 Habits and Routines

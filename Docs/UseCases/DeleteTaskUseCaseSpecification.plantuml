@@ -1,0 +1,20 @@
+@startuml DeleteTaskUseCaseSpecification
+    title Delete Task Use Case Specification
+
+state " " as A
+state " " as B
+state " " as C
+state isFound <<choice>>
+
+state ":DisplayTaskByPriorityAndDueDate" as DisplayTaskByPriorityAndDueDate
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita eliminar una tarea
+    A --> B : sistema permite seleccionar la tarea a eliminar y\n permite solicitar eliminar
+    B --> C : usuario selecciona la tarea y\n solicita eliminar
+    C --> isFound : [tarea existe?]
+        isFound --> DisplayTaskByPriorityAndDueDate : [yes]\n sistema muestra un mensaje de existos y\n
+    isFound -up-> B : sistema muestra un mensaje tarea no encontrada
+
+DisplayTaskByPriorityAndDueDate --> [*]
+@enduml

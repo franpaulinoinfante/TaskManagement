@@ -19,7 +19,7 @@ public class TaskManagementController
         _taskStack = new();
         _taskQueue = new();
 
-        LoadTreeView();
+        //LoadTreeView();
     }
 
     private void LoadTreeView()
@@ -35,6 +35,53 @@ public class TaskManagementController
         foreach (TaskItemCreateView subTask in subTaksSeed)
         {
             AddSubTask(subTask);
+        }
+    }
+
+    public TaskItemListView GetTaskItemById(int id)
+    {
+        if (id <= 0)
+        {
+            throw new ArgumentNullException();
+        }
+
+        var taskItem = _taskList.GetTask(id);
+        if (taskItem is null)
+        {
+            throw new InvalidOperationException("Tarea no encontrada");
+        }
+
+        return new TaskItemListView()
+        {
+            Id = taskItem.Id,
+            Title = taskItem.Title,
+            Description = taskItem.Description,
+            PriorityLevel = taskItem.PriorityLevel,
+            TaskState = taskItem.TaskState,
+            Category = taskItem.Category,
+            DueDate = taskItem.DueDate
+        };
+    }
+
+    public IReadOnlyList<TaskItemListView> TaskItemListViews
+    {
+        get
+        {
+            List<TaskItemListView> tasks = new List<TaskItemListView>();
+            foreach (var taskItem in _taskList.TasksByPriorityAndDueDate)
+            {
+                tasks.Add(new TaskItemListView
+                {
+                    Id = taskItem.Id,
+                    Title = taskItem.Title,
+                    PriorityLevel = taskItem.PriorityLevel,
+                    TaskState = taskItem.TaskState,
+                    Category = taskItem.Category,
+                    DueDate = taskItem.DueDate
+                });
+            }
+
+            return tasks;
         }
     }
 
@@ -56,12 +103,12 @@ public class TaskManagementController
         };
 
         _taskList.Add(taskItem);
-        _taskStack.Push(ActionOnTask.Create, taskItem.Clone);
+        //_taskStack.Push(ActionOnTask.Create, taskItem.Clone);
 
-        if (taskItem.PriorityLevel == PriorityLevel.Urgent)
-        {
-            _taskQueue.Enqueue(taskItem.Clone);
-        }
+        //if (taskItem.PriorityLevel == PriorityLevel.Urgent)
+        //{
+        //    _taskQueue.Enqueue(taskItem.Clone);
+        //}
     }
 
     public void AddSubTask(TaskItemCreateView createView)
@@ -93,7 +140,7 @@ public class TaskManagementController
 
     public void UpdateTask(TaskItemUpdateView updateView)
     {
-        if (updateView is null)
+        if (updateView is null || updateView.Id <= 0)
         {
             throw new ArgumentNullException();
         }
@@ -111,17 +158,22 @@ public class TaskManagementController
         taskItemToUpdate.PriorityLevel = updateView.PriorityLevel;
         taskItemToUpdate.DueDate = updateView.DueDate;
 
-        _taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
+        //_taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
         _taskList.Update(taskItemToUpdate);
 
-        if (taskItemToUpdate.PriorityLevel != PriorityLevel.Urgent)
-        {
-            _taskQueue.Dequeue(taskItemToUpdate);
-        }
+        //if (taskItemToUpdate.PriorityLevel != PriorityLevel.Urgent)
+        //{
+        //    _taskQueue.Dequeue(taskItemToUpdate);
+        //}
     }
 
     public void RemoveTask(TaskItemRemoveView removeView)
     {
+        if (removeView is null || removeView.Id <= 0)
+        {
+            throw new ArgumentNullException();
+        }
+
         TaskItem? taskToRemove = _taskList.GetTask(removeView.Id);
         if (taskToRemove is null)
         {
@@ -134,7 +186,7 @@ public class TaskManagementController
 
     public void UpdateState(UpdateTaskStateView updateTaskStateView)
     {
-        if (updateTaskStateView == null)
+        if (updateTaskStateView == null || updateTaskStateView.Id <= 0)
         {
             throw new ArgumentNullException();
         }
@@ -152,7 +204,7 @@ public class TaskManagementController
 
     public void MarkTaskUrgent(UpdateLavelStateView updateLavelStateView)
     {
-        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Urgent)
+        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Urgent || updateLavelStateView.Id <= 0)
         {
             throw new ArgumentNullException();
         }
@@ -172,7 +224,7 @@ public class TaskManagementController
 
     public void MarkTaskNormal(UpdateLavelStateView updateLavelStateView)
     {
-        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Normal)
+        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Normal || updateLavelStateView.Id <= 0)
         {
             throw new ArgumentNullException();
         }

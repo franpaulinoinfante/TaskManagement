@@ -14,7 +14,7 @@ public class TaskList
         _id = default;
     }
 
-    public List<TaskItem> Tasks => _tasks
+    public List<TaskItem> TasksByPriorityAndDueDate => _tasks
                 .OrderByDescending(t => t.PriorityLevel)
                 .ThenBy(t => t.DueDate)
                 .ToList();

@@ -1,0 +1,34 @@
+@startuml UpdateTaskSpecification
+    title Update Task Specification
+
+
+state ":DisplayTaskByPriorityAndDueDate" as DisplayTaskByPriorityAndDueDate
+
+state " " as A
+state " " as B
+state " " as C
+
+state isValid <<choice>>
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita actualizar una tarea
+    A --> B : sistema permite seleccionar la tarea a actualizar,\n permite introducir los datos y\n permite solicitar actualizar
+        note on link
+            Obligatorios
+            - id
+            - categoria
+            - tittulo
+            - descripción
+            - nivel de prioridad
+            - estatus 
+            - fecha de vencimiento
+        endnote
+    B --> C : usuario introduce los datos a actualizar y\n solicita actualizar
+    C --> isValid : [datos validos?]
+        isValid --> DisplayTaskByPriorityAndDueDate : [yes]\nsistema le muestra un mensaje de exito\n y
+    isValid -up-> B : [not]\n sistema muestra un mensaje de error y\n permite introducir los datos de nuevo
+        note on link
+            Debe introducir todos los datos obligatorios
+        endnote
+DisplayTaskByPriorityAndDueDate --> [*]
+@enduml

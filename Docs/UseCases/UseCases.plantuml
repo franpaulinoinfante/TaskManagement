@@ -1,0 +1,33 @@
+@startuml UseCases
+    left to right direction
+    title Use Cases
+
+actor User
+
+usecase "Add Task" as UC101
+usecase "Update Task" as UC102
+usecase "Delete Task" as UC103
+usecase "Display Task By Priority And DueDate" as UC104
+
+usecase "Push Task Action" as UC201
+usecase "Undo" as UC202
+usecase "Redo" as UC203
+usecase "Display Task Action History" as UC204
+usecase "Display Task Action Redos" as UC205
+
+usecase "Mark Task Urgent" as UC301
+usecase "Mark Task Normal" as UC302
+
+usecase "Mark Task ToDo" as UC402
+usecase "Mark Task In Progress" as UC403
+usecase "Mark Task Done" as UC404
+
+usecase "Display Task In Category Tree" as UC501
+
+User --> UC101
+    UC101 ..> UC104 : <<include>>
+User --> UC102
+    UC102 ..> UC104 : <<include>>
+User --> UC103
+    UC103 ..> UC104 : <<include>>
+@enduml

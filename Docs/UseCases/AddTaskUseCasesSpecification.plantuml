@@ -1,0 +1,41 @@
+@startuml AddTaskUseCasesSpecification
+    title Add Task Use Cases Specification
+
+state ":DisplayTaskByPriorityAndDueDate" as DisplayTaskByPriorityAndDueDate
+state " " as A
+state " " as B
+state " " as C
+state " " as D
+
+state isValidDate <<choice>>
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita agregar una nueva tarea
+    A --> B : sistema solicita introducir los campos necesarios y\n permite solicitar agregar nueva tarea
+        note on link
+            Obligatorios
+            - categoria
+            - titulo
+            - descripción
+            - nivel de prioridad
+            - estatus (ToDo por defecto)
+            - fecha de vencimiento
+        endnote
+    B --> C : usuario introduce los datos y\n solicita agregar
+    C --> isValidDate : [datos validados]
+        isValidDate --> DisplayTaskByPriorityAndDueDate : [yes]\nsistema muestra un mensaje de exito!
+    isValidDate -up-> B : [not]\nsistema muestra un mensaje de error y\n permite introcuir los datos de nuevo
+        
+DisplayTaskByPriorityAndDueDate --> [*]
+@enduml
+
+state ":AddTask" as AddTask
+state ":UpdateTask" as UpdateTask
+state ":DeleteTask" as DeleteTask
+state ":Undo" as Undo
+state ":Redo" as Redo
+state ":MarkTaskUrgent" as MarkTaskUrgent
+state ":MarkTaskNormal" as MarkTaskNormal
+state ":MarkTaskToDo" as MarkTaskToDo
+state ":MarkTaskInProgress" as MarkTaskInProgress
+state ":MarkTaskDone" as MarkTaskDone

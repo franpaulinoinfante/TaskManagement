@@ -30,38 +30,41 @@ partial class TaskManagementForm
     {
         label1 = new Label();
         txtId = new TextBox();
-        textBox2 = new TextBox();
+        txtTitle = new TextBox();
         label2 = new Label();
         label3 = new Label();
-        label4 = new Label();
         label5 = new Label();
-        label6 = new Label();
         label7 = new Label();
-        textBox1 = new TextBox();
-        dateTimePicker1 = new DateTimePicker();
-        radioButton1 = new RadioButton();
-        radioButton2 = new RadioButton();
-        radioButton3 = new RadioButton();
+        txtDescription = new TextBox();
+        dtpDueDate = new DateTimePicker();
+        rdbToDo = new RadioButton();
+        rdbInProgress = new RadioButton();
+        rdbDone = new RadioButton();
         tabControl1 = new TabControl();
         tabList = new TabPage();
+        listTaksItems = new ListView();
         tabStack = new TabPage();
-        comboBox1 = new ComboBox();
-        label9 = new Label();
-        comboBox2 = new ComboBox();
-        radioButton5 = new RadioButton();
-        radioButton6 = new RadioButton();
+        label10 = new Label();
+        label8 = new Label();
+        button2 = new Button();
+        button1 = new Button();
+        listView3 = new ListView();
+        listView2 = new ListView();
         tabQueue = new TabPage();
         tabTree = new TabPage();
-        listView1 = new ListView();
-        listView2 = new ListView();
-        listView3 = new ListView();
-        button1 = new Button();
-        button2 = new Button();
-        label8 = new Label();
-        label10 = new Label();
+        cbbCategory = new ComboBox();
+        rdbNormal = new RadioButton();
+        rdbUrgent = new RadioButton();
+        btnSave = new Button();
+        groupBox1 = new GroupBox();
+        groupBox2 = new GroupBox();
+        btnUpdate = new Button();
+        btnNew = new Button();
         tabControl1.SuspendLayout();
         tabList.SuspendLayout();
         tabStack.SuspendLayout();
+        groupBox1.SuspendLayout();
+        groupBox2.SuspendLayout();
         SuspendLayout();
         // 
         // label1
@@ -83,18 +86,19 @@ partial class TaskManagementForm
         txtId.TabIndex = 2;
         txtId.TextAlign = HorizontalAlignment.Center;
         // 
-        // textBox2
+        // txtTitle
         // 
-        textBox2.Location = new Point(176, 12);
-        textBox2.Name = "textBox2";
-        textBox2.Size = new Size(544, 27);
-        textBox2.TabIndex = 3;
+        txtTitle.Enabled = false;
+        txtTitle.Location = new Point(180, 12);
+        txtTitle.Name = "txtTitle";
+        txtTitle.Size = new Size(489, 27);
+        txtTitle.TabIndex = 3;
         // 
         // label2
         // 
         label2.AutoSize = true;
         label2.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label2.Location = new Point(118, 15);
+        label2.Location = new Point(122, 15);
         label2.Name = "label2";
         label2.Size = new Size(52, 20);
         label2.TabIndex = 4;
@@ -104,21 +108,11 @@ partial class TaskManagementForm
         // 
         label3.AutoSize = true;
         label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label3.Location = new Point(12, 129);
+        label3.Location = new Point(12, 81);
         label3.Name = "label3";
         label3.Size = new Size(93, 20);
         label3.TabIndex = 5;
         label3.Text = "Descripción:";
-        // 
-        // label4
-        // 
-        label4.AutoSize = true;
-        label4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label4.Location = new Point(335, 85);
-        label4.Name = "label4";
-        label4.Size = new Size(58, 20);
-        label4.TabIndex = 6;
-        label4.Text = "Estado:";
         // 
         // label5
         // 
@@ -130,74 +124,68 @@ partial class TaskManagementForm
         label5.TabIndex = 7;
         label5.Text = "Categoria:";
         // 
-        // label6
-        // 
-        label6.AutoSize = true;
-        label6.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label6.Location = new Point(478, 48);
-        label6.Name = "label6";
-        label6.Size = new Size(73, 20);
-        label6.TabIndex = 8;
-        label6.Text = "Prioridad";
-        // 
         // label7
         // 
         label7.AutoSize = true;
         label7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label7.Location = new Point(12, 79);
+        label7.Location = new Point(304, 40);
         label7.Name = "label7";
         label7.Size = new Size(98, 40);
         label7.TabIndex = 9;
         label7.Text = "Fecha de \r\nVencimiento:";
         // 
-        // textBox1
+        // txtDescription
         // 
-        textBox1.Location = new Point(12, 152);
-        textBox1.Multiline = true;
-        textBox1.Name = "textBox1";
-        textBox1.ScrollBars = ScrollBars.Vertical;
-        textBox1.Size = new Size(708, 65);
-        textBox1.TabIndex = 10;
+        txtDescription.Enabled = false;
+        txtDescription.Location = new Point(12, 104);
+        txtDescription.Multiline = true;
+        txtDescription.Name = "txtDescription";
+        txtDescription.ScrollBars = ScrollBars.Vertical;
+        txtDescription.Size = new Size(755, 68);
+        txtDescription.TabIndex = 10;
         // 
-        // dateTimePicker1
+        // dtpDueDate
         // 
-        dateTimePicker1.Location = new Point(116, 82);
-        dateTimePicker1.Name = "dateTimePicker1";
-        dateTimePicker1.Size = new Size(200, 27);
-        dateTimePicker1.TabIndex = 12;
+        dtpDueDate.Enabled = false;
+        dtpDueDate.Location = new Point(408, 43);
+        dtpDueDate.Name = "dtpDueDate";
+        dtpDueDate.Size = new Size(261, 27);
+        dtpDueDate.TabIndex = 12;
         // 
-        // radioButton1
+        // rdbToDo
         // 
-        radioButton1.AutoSize = true;
-        radioButton1.Location = new Point(400, 85);
-        radioButton1.Name = "radioButton1";
-        radioButton1.Size = new Size(91, 24);
-        radioButton1.TabIndex = 13;
-        radioButton1.TabStop = true;
-        radioButton1.Text = "Por Hacer";
-        radioButton1.UseVisualStyleBackColor = true;
+        rdbToDo.AutoSize = true;
+        rdbToDo.Checked = true;
+        rdbToDo.Enabled = false;
+        rdbToDo.Location = new Point(6, 26);
+        rdbToDo.Name = "rdbToDo";
+        rdbToDo.Size = new Size(91, 24);
+        rdbToDo.TabIndex = 13;
+        rdbToDo.TabStop = true;
+        rdbToDo.Text = "Por Hacer";
+        rdbToDo.UseVisualStyleBackColor = true;
         // 
-        // radioButton2
+        // rdbInProgress
         // 
-        radioButton2.AutoSize = true;
-        radioButton2.Location = new Point(494, 85);
-        radioButton2.Name = "radioButton2";
-        radioButton2.Size = new Size(106, 24);
-        radioButton2.TabIndex = 14;
-        radioButton2.TabStop = true;
-        radioButton2.Text = "En Progreso";
-        radioButton2.UseVisualStyleBackColor = true;
+        rdbInProgress.AutoSize = true;
+        rdbInProgress.Enabled = false;
+        rdbInProgress.Location = new Point(6, 53);
+        rdbInProgress.Name = "rdbInProgress";
+        rdbInProgress.Size = new Size(106, 24);
+        rdbInProgress.TabIndex = 14;
+        rdbInProgress.Text = "En Progreso";
+        rdbInProgress.UseVisualStyleBackColor = true;
         // 
-        // radioButton3
+        // rdbDone
         // 
-        radioButton3.AutoSize = true;
-        radioButton3.Location = new Point(601, 85);
-        radioButton3.Name = "radioButton3";
-        radioButton3.Size = new Size(97, 24);
-        radioButton3.TabIndex = 15;
-        radioButton3.TabStop = true;
-        radioButton3.Text = "Terminada";
-        radioButton3.UseVisualStyleBackColor = true;
+        rdbDone.AutoSize = true;
+        rdbDone.Enabled = false;
+        rdbDone.Location = new Point(6, 83);
+        rdbDone.Name = "rdbDone";
+        rdbDone.Size = new Size(97, 24);
+        rdbDone.TabIndex = 15;
+        rdbDone.Text = "Terminada";
+        rdbDone.UseVisualStyleBackColor = true;
         // 
         // tabControl1
         // 
@@ -206,22 +194,34 @@ partial class TaskManagementForm
         tabControl1.Controls.Add(tabQueue);
         tabControl1.Controls.Add(tabTree);
         tabControl1.Dock = DockStyle.Bottom;
-        tabControl1.Location = new Point(0, 280);
+        tabControl1.Location = new Point(0, 212);
         tabControl1.Name = "tabControl1";
         tabControl1.SelectedIndex = 0;
-        tabControl1.Size = new Size(732, 377);
+        tabControl1.Size = new Size(905, 431);
         tabControl1.TabIndex = 17;
         // 
         // tabList
         // 
-        tabList.Controls.Add(listView1);
+        tabList.Controls.Add(listTaksItems);
         tabList.Location = new Point(4, 29);
         tabList.Name = "tabList";
         tabList.Padding = new Padding(3);
-        tabList.Size = new Size(724, 344);
+        tabList.Size = new Size(897, 398);
         tabList.TabIndex = 0;
         tabList.Text = "Lista";
         tabList.UseVisualStyleBackColor = true;
+        // 
+        // listTaksItems
+        // 
+        listTaksItems.Dock = DockStyle.Fill;
+        listTaksItems.FullRowSelect = true;
+        listTaksItems.Location = new Point(3, 3);
+        listTaksItems.Name = "listTaksItems";
+        listTaksItems.Size = new Size(891, 392);
+        listTaksItems.TabIndex = 0;
+        listTaksItems.UseCompatibleStateImageBehavior = false;
+        listTaksItems.View = View.Details;
+        listTaksItems.Click += listTaksItems_Click;
         // 
         // tabStack
         // 
@@ -231,134 +231,13 @@ partial class TaskManagementForm
         tabStack.Controls.Add(button1);
         tabStack.Controls.Add(listView3);
         tabStack.Controls.Add(listView2);
-        tabStack.Location = new Point(4, 29);
+        tabStack.Location = new Point(4, 24);
         tabStack.Name = "tabStack";
         tabStack.Padding = new Padding(3);
-        tabStack.Size = new Size(724, 344);
+        tabStack.Size = new Size(897, 403);
         tabStack.TabIndex = 1;
         tabStack.Text = "Stack";
         tabStack.UseVisualStyleBackColor = true;
-        // 
-        // comboBox1
-        // 
-        comboBox1.FormattingEnabled = true;
-        comboBox1.Location = new Point(97, 45);
-        comboBox1.Name = "comboBox1";
-        comboBox1.Size = new Size(121, 28);
-        comboBox1.TabIndex = 18;
-        // 
-        // label9
-        // 
-        label9.AutoSize = true;
-        label9.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label9.Location = new Point(224, 48);
-        label9.Name = "label9";
-        label9.Size = new Size(109, 20);
-        label9.TabIndex = 20;
-        label9.Text = "Sub-categoria:";
-        // 
-        // comboBox2
-        // 
-        comboBox2.FormattingEnabled = true;
-        comboBox2.Location = new Point(339, 45);
-        comboBox2.Name = "comboBox2";
-        comboBox2.Size = new Size(121, 28);
-        comboBox2.TabIndex = 21;
-        // 
-        // radioButton5
-        // 
-        radioButton5.AutoSize = true;
-        radioButton5.Location = new Point(557, 45);
-        radioButton5.Name = "radioButton5";
-        radioButton5.Size = new Size(77, 24);
-        radioButton5.TabIndex = 22;
-        radioButton5.TabStop = true;
-        radioButton5.Text = "Normal";
-        radioButton5.UseVisualStyleBackColor = true;
-        // 
-        // radioButton6
-        // 
-        radioButton6.AutoSize = true;
-        radioButton6.Location = new Point(640, 46);
-        radioButton6.Name = "radioButton6";
-        radioButton6.Size = new Size(80, 24);
-        radioButton6.TabIndex = 23;
-        radioButton6.TabStop = true;
-        radioButton6.Text = "Urgente";
-        radioButton6.UseVisualStyleBackColor = true;
-        // 
-        // tabQueue
-        // 
-        tabQueue.Location = new Point(4, 29);
-        tabQueue.Name = "tabQueue";
-        tabQueue.Padding = new Padding(3);
-        tabQueue.Size = new Size(724, 344);
-        tabQueue.TabIndex = 2;
-        tabQueue.Text = "Queue";
-        tabQueue.UseVisualStyleBackColor = true;
-        // 
-        // tabTree
-        // 
-        tabTree.Location = new Point(4, 29);
-        tabTree.Name = "tabTree";
-        tabTree.Padding = new Padding(3);
-        tabTree.Size = new Size(724, 333);
-        tabTree.TabIndex = 3;
-        tabTree.Text = "Tree";
-        tabTree.UseVisualStyleBackColor = true;
-        // 
-        // listView1
-        // 
-        listView1.Dock = DockStyle.Fill;
-        listView1.Location = new Point(3, 3);
-        listView1.Name = "listView1";
-        listView1.Size = new Size(718, 338);
-        listView1.TabIndex = 0;
-        listView1.UseCompatibleStateImageBehavior = false;
-        // 
-        // listView2
-        // 
-        listView2.Location = new Point(8, 40);
-        listView2.Name = "listView2";
-        listView2.Size = new Size(197, 298);
-        listView2.TabIndex = 0;
-        listView2.UseCompatibleStateImageBehavior = false;
-        // 
-        // listView3
-        // 
-        listView3.Location = new Point(519, 43);
-        listView3.Name = "listView3";
-        listView3.Size = new Size(197, 298);
-        listView3.TabIndex = 1;
-        listView3.UseCompatibleStateImageBehavior = false;
-        // 
-        // button1
-        // 
-        button1.Location = new Point(263, 71);
-        button1.Name = "button1";
-        button1.Size = new Size(208, 54);
-        button1.TabIndex = 2;
-        button1.Text = "Undo";
-        button1.UseVisualStyleBackColor = true;
-        // 
-        // button2
-        // 
-        button2.Location = new Point(263, 180);
-        button2.Name = "button2";
-        button2.Size = new Size(208, 54);
-        button2.TabIndex = 3;
-        button2.Text = "Redo";
-        button2.UseVisualStyleBackColor = true;
-        // 
-        // label8
-        // 
-        label8.AutoSize = true;
-        label8.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label8.Location = new Point(61, 17);
-        label8.Name = "label8";
-        label8.Size = new Size(59, 20);
-        label8.TabIndex = 24;
-        label8.Text = "History";
         // 
         // label10
         // 
@@ -370,39 +249,197 @@ partial class TaskManagementForm
         label10.TabIndex = 25;
         label10.Text = "Redos";
         // 
+        // label8
+        // 
+        label8.AutoSize = true;
+        label8.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        label8.Location = new Point(61, 17);
+        label8.Name = "label8";
+        label8.Size = new Size(59, 20);
+        label8.TabIndex = 24;
+        label8.Text = "History";
+        // 
+        // button2
+        // 
+        button2.Location = new Point(263, 180);
+        button2.Name = "button2";
+        button2.Size = new Size(208, 54);
+        button2.TabIndex = 3;
+        button2.Text = "Redo";
+        button2.UseVisualStyleBackColor = true;
+        // 
+        // button1
+        // 
+        button1.Location = new Point(263, 71);
+        button1.Name = "button1";
+        button1.Size = new Size(208, 54);
+        button1.TabIndex = 2;
+        button1.Text = "Undo";
+        button1.UseVisualStyleBackColor = true;
+        // 
+        // listView3
+        // 
+        listView3.Location = new Point(519, 43);
+        listView3.Name = "listView3";
+        listView3.Size = new Size(197, 298);
+        listView3.TabIndex = 1;
+        listView3.UseCompatibleStateImageBehavior = false;
+        // 
+        // listView2
+        // 
+        listView2.Location = new Point(8, 40);
+        listView2.Name = "listView2";
+        listView2.Size = new Size(197, 298);
+        listView2.TabIndex = 0;
+        listView2.UseCompatibleStateImageBehavior = false;
+        // 
+        // tabQueue
+        // 
+        tabQueue.Location = new Point(4, 24);
+        tabQueue.Name = "tabQueue";
+        tabQueue.Padding = new Padding(3);
+        tabQueue.Size = new Size(897, 403);
+        tabQueue.TabIndex = 2;
+        tabQueue.Text = "Queue";
+        tabQueue.UseVisualStyleBackColor = true;
+        // 
+        // tabTree
+        // 
+        tabTree.Location = new Point(4, 24);
+        tabTree.Name = "tabTree";
+        tabTree.Padding = new Padding(3);
+        tabTree.Size = new Size(897, 403);
+        tabTree.TabIndex = 3;
+        tabTree.Text = "Tree";
+        tabTree.UseVisualStyleBackColor = true;
+        // 
+        // cbbCategory
+        // 
+        cbbCategory.Enabled = false;
+        cbbCategory.FormattingEnabled = true;
+        cbbCategory.Location = new Point(97, 45);
+        cbbCategory.Name = "cbbCategory";
+        cbbCategory.Size = new Size(201, 28);
+        cbbCategory.TabIndex = 18;
+        // 
+        // rdbNormal
+        // 
+        rdbNormal.AutoSize = true;
+        rdbNormal.Checked = true;
+        rdbNormal.Enabled = false;
+        rdbNormal.Location = new Point(6, 26);
+        rdbNormal.Name = "rdbNormal";
+        rdbNormal.Size = new Size(77, 24);
+        rdbNormal.TabIndex = 22;
+        rdbNormal.TabStop = true;
+        rdbNormal.Text = "Normal";
+        rdbNormal.UseVisualStyleBackColor = true;
+        // 
+        // rdbUrgent
+        // 
+        rdbUrgent.AutoSize = true;
+        rdbUrgent.Enabled = false;
+        rdbUrgent.Location = new Point(6, 56);
+        rdbUrgent.Name = "rdbUrgent";
+        rdbUrgent.Size = new Size(80, 24);
+        rdbUrgent.TabIndex = 23;
+        rdbUrgent.Text = "Urgente";
+        rdbUrgent.UseVisualStyleBackColor = true;
+        // 
+        // btnSave
+        // 
+        btnSave.Enabled = false;
+        btnSave.Location = new Point(180, 178);
+        btnSave.Name = "btnSave";
+        btnSave.Size = new Size(75, 28);
+        btnSave.TabIndex = 24;
+        btnSave.Text = "Guardar";
+        btnSave.UseVisualStyleBackColor = true;
+        btnSave.Click += btnSave_Click;
+        // 
+        // groupBox1
+        // 
+        groupBox1.Controls.Add(rdbToDo);
+        groupBox1.Controls.Add(rdbInProgress);
+        groupBox1.Controls.Add(rdbDone);
+        groupBox1.Location = new Point(773, 12);
+        groupBox1.Name = "groupBox1";
+        groupBox1.Size = new Size(120, 120);
+        groupBox1.TabIndex = 25;
+        groupBox1.TabStop = false;
+        groupBox1.Text = "Estado";
+        // 
+        // groupBox2
+        // 
+        groupBox2.Controls.Add(rdbNormal);
+        groupBox2.Controls.Add(rdbUrgent);
+        groupBox2.Location = new Point(675, 12);
+        groupBox2.Name = "groupBox2";
+        groupBox2.Size = new Size(92, 89);
+        groupBox2.TabIndex = 26;
+        groupBox2.TabStop = false;
+        groupBox2.Text = "Prioridad";
+        // 
+        // btnUpdate
+        // 
+        btnUpdate.Enabled = false;
+        btnUpdate.Location = new Point(93, 178);
+        btnUpdate.Name = "btnUpdate";
+        btnUpdate.Size = new Size(75, 28);
+        btnUpdate.TabIndex = 27;
+        btnUpdate.Text = "Editar";
+        btnUpdate.UseVisualStyleBackColor = true;
+        btnUpdate.Click += btnUpdate_Click;
+        // 
+        // btnNew
+        // 
+        btnNew.Location = new Point(12, 178);
+        btnNew.Name = "btnNew";
+        btnNew.Size = new Size(75, 28);
+        btnNew.TabIndex = 28;
+        btnNew.Text = "Nuevo";
+        btnNew.UseVisualStyleBackColor = true;
+        btnNew.Click += btnNew_Click;
+        // 
         // TaskManagementForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(732, 657);
-        Controls.Add(radioButton6);
-        Controls.Add(radioButton5);
-        Controls.Add(comboBox2);
-        Controls.Add(label9);
-        Controls.Add(comboBox1);
+        ClientSize = new Size(905, 643);
+        Controls.Add(btnNew);
+        Controls.Add(btnUpdate);
+        Controls.Add(groupBox2);
+        Controls.Add(groupBox1);
+        Controls.Add(btnSave);
+        Controls.Add(cbbCategory);
         Controls.Add(tabControl1);
-        Controls.Add(radioButton3);
-        Controls.Add(radioButton2);
-        Controls.Add(radioButton1);
-        Controls.Add(dateTimePicker1);
-        Controls.Add(textBox1);
+        Controls.Add(dtpDueDate);
+        Controls.Add(txtDescription);
         Controls.Add(label7);
-        Controls.Add(label6);
         Controls.Add(label5);
-        Controls.Add(label4);
         Controls.Add(label3);
         Controls.Add(label2);
-        Controls.Add(textBox2);
+        Controls.Add(txtTitle);
         Controls.Add(txtId);
         Controls.Add(label1);
         Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(3, 4, 3, 4);
+        MaximizeBox = false;
+        MaximumSize = new Size(921, 682);
+        MinimizeBox = false;
+        MinimumSize = new Size(921, 682);
         Name = "TaskManagementForm";
-        Text = "TaskManagementForm";
+        StartPosition = FormStartPosition.CenterScreen;
+        Text = "Task Management";
+        Load += TaskManagementForm_Load;
         tabControl1.ResumeLayout(false);
         tabList.ResumeLayout(false);
         tabStack.ResumeLayout(false);
         tabStack.PerformLayout();
+        groupBox1.ResumeLayout(false);
+        groupBox1.PerformLayout();
+        groupBox2.ResumeLayout(false);
+        groupBox2.PerformLayout();
         ResumeLayout(false);
         PerformLayout();
     }
@@ -410,33 +447,34 @@ partial class TaskManagementForm
     #endregion
     private Label label1;
     private TextBox txtId;
-    private TextBox textBox2;
+    private TextBox txtTitle;
     private Label label2;
     private Label label3;
-    private Label label4;
     private Label label5;
-    private Label label6;
     private Label label7;
-    private TextBox textBox1;
-    private DateTimePicker dateTimePicker1;
-    private RadioButton radioButton1;
-    private RadioButton radioButton2;
-    private RadioButton radioButton3;
+    private TextBox txtDescription;
+    private DateTimePicker dtpDueDate;
+    private RadioButton rdbToDo;
+    private RadioButton rdbInProgress;
+    private RadioButton rdbDone;
     private TabControl tabControl1;
     private TabPage tabList;
     private TabPage tabStack;
-    private ComboBox comboBox1;
-    private Label label9;
-    private ComboBox comboBox2;
-    private RadioButton radioButton5;
-    private RadioButton radioButton6;
+    private ComboBox cbbCategory;
+    private RadioButton rdbNormal;
+    private RadioButton rdbUrgent;
     private TabPage tabQueue;
     private TabPage tabTree;
-    private ListView listView1;
+    private ListView listTaksItems;
     private Label label10;
     private Label label8;
     private Button button2;
     private Button button1;
     private ListView listView3;
     private ListView listView2;
+    private Button btnSave;
+    private GroupBox groupBox1;
+    private GroupBox groupBox2;
+    private Button btnUpdate;
+    private Button btnNew;
 }
