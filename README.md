@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/77877475-29b2-410b-a846-99402fa21672)# Task Management
+# Task Management
 Práctica Final: Estructuras de Datos en el Lenguaje de Programación de Tu Preferencia
 
 ## Objetivo:
