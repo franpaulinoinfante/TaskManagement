@@ -54,7 +54,7 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 ![image](https://github.com/user-attachments/assets/2e306aa5-0bc0-44fe-b04d-451757e457f5)
 
 ## Use Cases Diagram
-![image](https://github.com/user-attachments/assets/1bd17c27-71bb-42cf-b24c-6481c00c8d1b)
+![image](https://github.com/user-attachments/assets/c67713bf-55ec-482d-9213-37da81e98a0d)
 
 ### Use Cases Specifications
 
@@ -74,5 +74,4 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 ![image](https://github.com/user-attachments/assets/6bf70971-4f65-45e4-96b2-23adb754a8fa)
 
 ### Mark Task Urgent
-![image](https://github.com/user-attachments/assets/e81fcbaf-4834-4166-8776-dab5be503eef)
-
+![image](https://github.com/user-attachments/assets/b532ce4f-ffe4-402d-93c6-04c82e6c2c2f)
