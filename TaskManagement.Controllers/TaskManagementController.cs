@@ -46,7 +46,7 @@ public class TaskManagementController
             throw new ArgumentNullException();
         }
 
-        var taskItem = _taskList.GetTask(id);
+        TaskItem? taskItem = _taskList.GetTask(id);
         if (taskItem is null)
         {
             throw new InvalidOperationException("Tarea no encontrada");
@@ -69,7 +69,7 @@ public class TaskManagementController
         get
         {
             List<TaskItemListView> tasks = new List<TaskItemListView>();
-            foreach (var taskItem in _taskList.TasksByPriorityAndDueDate)
+            foreach (TaskItem taskItem in _taskList.TasksByPriorityAndDueDate)
             {
                 tasks.Add(new TaskItemListView
                 {
@@ -90,9 +90,9 @@ public class TaskManagementController
     {
         get
         {
-            var historyTaskActions = new List<TaskActionsView>();
-            var taskActions = _taskStack.HistoryTaskActions;
-            foreach (var action in taskActions)
+            List<TaskActionsView> historyTaskActions = new List<TaskActionsView>();
+            IReadOnlyList<(ActionOnTask, TaskItem)> taskActions = _taskStack.HistoryTaskActions;
+            foreach ((ActionOnTask, TaskItem) action in taskActions)
             {
                 historyTaskActions.Add(new TaskActionsView()
                 {
@@ -265,10 +265,13 @@ public class TaskManagementController
 
     public void Undo()
     {
-        if (_taskStack.HistoryTaskActions.Count > 0)
+        if (!_taskStack.CanDoUndo())
         {
-            _taskStack.Undo();
+            throw new InvalidOperationException("No se puede deshacer");
         }
+
+        TaskItem taskItemBefore = _taskStack.Undo();
+        _taskList.Update(taskItemBefore);
     }
 
     public void Redo()

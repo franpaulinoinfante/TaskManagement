@@ -8,7 +8,7 @@ public enum PriorityLevel
 
 public static class PriorityExtension
 {
-    private static string[] Messages =
+    private static readonly string[] Messages =
     {
         "Normal",
         "Urgente"

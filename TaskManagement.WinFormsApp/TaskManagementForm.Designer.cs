@@ -47,7 +47,7 @@ partial class TaskManagementForm
         label10 = new Label();
         label8 = new Label();
         button2 = new Button();
-        button1 = new Button();
+        btnUndo = new Button();
         listView3 = new ListView();
         listTaskHistoryStack = new ListView();
         tabQueue = new TabPage();
@@ -229,13 +229,13 @@ partial class TaskManagementForm
         tabStack.Controls.Add(label10);
         tabStack.Controls.Add(label8);
         tabStack.Controls.Add(button2);
-        tabStack.Controls.Add(button1);
+        tabStack.Controls.Add(btnUndo);
         tabStack.Controls.Add(listView3);
         tabStack.Controls.Add(listTaskHistoryStack);
-        tabStack.Location = new Point(4, 24);
+        tabStack.Location = new Point(4, 29);
         tabStack.Name = "tabStack";
         tabStack.Padding = new Padding(3);
-        tabStack.Size = new Size(897, 403);
+        tabStack.Size = new Size(897, 398);
         tabStack.TabIndex = 1;
         tabStack.Text = "Stack";
         tabStack.UseVisualStyleBackColor = true;
@@ -269,14 +269,15 @@ partial class TaskManagementForm
         button2.Text = "Redo";
         button2.UseVisualStyleBackColor = true;
         // 
-        // button1
+        // btnUndo
         // 
-        button1.Location = new Point(344, 72);
-        button1.Name = "button1";
-        button1.Size = new Size(208, 54);
-        button1.TabIndex = 2;
-        button1.Text = "Undo";
-        button1.UseVisualStyleBackColor = true;
+        btnUndo.Location = new Point(344, 72);
+        btnUndo.Name = "btnUndo";
+        btnUndo.Size = new Size(208, 54);
+        btnUndo.TabIndex = 2;
+        btnUndo.Text = "Undo";
+        btnUndo.UseVisualStyleBackColor = true;
+        btnUndo.Click += btnUndo_Click;
         // 
         // listView3
         // 
@@ -484,7 +485,7 @@ partial class TaskManagementForm
     private Label label10;
     private Label label8;
     private Button button2;
-    private Button button1;
+    private Button btnUndo;
     private ListView listView3;
     private ListView listTaskHistoryStack;
     private Button btnSave;

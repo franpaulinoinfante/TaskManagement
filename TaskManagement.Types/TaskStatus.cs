@@ -9,7 +9,7 @@ public enum TaskState
 
 public static class TaskStateExtension
 {
-    private static string[] Messages =
+    private static readonly string[] Messages =
     {
         "Pendiente",
         "En Progreso",

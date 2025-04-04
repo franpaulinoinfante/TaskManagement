@@ -396,7 +396,7 @@ public partial class TaskManagementForm : Form
 
     private void btnDelete_Click(object sender, EventArgs e)
     {
-        if ((listTaksItems.SelectedItems.Count == 0))
+        if (listTaksItems.SelectedItems.Count == 0)
         {
             MessageBox.Show("No ha seleccionado una tarea", "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
@@ -431,14 +431,14 @@ public partial class TaskManagementForm : Form
 
         try
         {
-            var taskActionsHistory = _taskManagementController.TaskActionsHistory;
+            IReadOnlyList<TaskViews.TaskStackViews.TaskActionsView> taskActionsHistory = _taskManagementController.TaskActionsHistory;
             if (!taskActionsHistory.Any())
             {
                 MessageBox.Show("No se ha creado tarea", "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 
-            foreach (var taskItem in taskActionsHistory)
+            foreach (TaskViews.TaskStackViews.TaskActionsView taskItem in taskActionsHistory)
             {
                 listTaskHistoryStack.Items.Add(new ListViewItem(new[]
                 {
@@ -451,6 +451,23 @@ public partial class TaskManagementForm : Form
         catch (Exception ex)
         {
             MessageBox.Show(ex.Message, "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+    }
+
+    private void btnUndo_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            _taskManagementController.Undo();
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            DisplayTaskByPriorityAndDueDate();
+            DisplayTaskActionHistory();
         }
     }
 }

@@ -8,7 +8,7 @@ public enum ActionOnTask
 
 public static class ActionOnTaskExtension
 {
-    private static string[] Messages =
+    private static readonly string[] Messages =
     {
         "Agregar",
         "Actualizar",

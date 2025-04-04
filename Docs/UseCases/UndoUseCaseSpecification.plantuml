@@ -1,0 +1,30 @@
+@startuml UndoUseCaseSpecification
+    title Undo Use Case Specification
+
+state " " as A
+state " " as B
+state " " as C
+state canUndo <<choice>>
+
+state ":Display Task Action History" as DisplayTaskActionHistory
+state ":Display Task Redos History" as DisplayTaskRedosHistory
+state ":Display Task By Priority And DueDate" as DisplayTaskByPriorityAndDueDate
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita deshacer
+    A --> canUndo : [existe alguna acción en el historial?]
+        note on link
+            - se puede hacer deshacer cuando existe al menos una acción en el historial
+        endnote
+        canUndo --> B : [yes]\n sistem permite seleccionar la acción a deshacer y\n permite solicitar deshacer
+            B --> C : usuario selecciona la acción a deshacer y\n solicita deshacer
+            C --> DisplayTaskActionHistory : sistema muestra
+            DisplayTaskActionHistory --> DisplayTaskRedosHistory
+            DisplayTaskRedosHistory --> DisplayTaskByPriorityAndDueDate
+    canUndo --> [*] : [not]\n sistema muestra un mensaje de error
+        note on link
+            No existen acciones en el historial
+        endnote
+
+DisplayTaskByPriorityAndDueDate --> [*]
+@enduml

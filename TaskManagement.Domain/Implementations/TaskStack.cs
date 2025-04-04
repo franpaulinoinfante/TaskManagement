@@ -26,13 +26,28 @@ public class TaskStack
         _redoTasks.Clear();
     }
 
-    public void Undo()
+    public TaskItem Undo()
     {
-        _redoTasks.Push(_historyTasks.Pop());
+        if (CanDoUndo())
+        {
+
+            _redoTasks.Push(_historyTasks.Pop());
+        }
+
+        return _historyTasks.Peek().Item2.Clone;
     }
 
-    public void Redo()
+    public bool CanDoUndo() => _historyTasks.Count > 1;
+
+    public TaskItem Redo()
     {
-        _historyTasks.Push(_redoTasks.Pop());
+        if (CanDoRedo())
+        {
+            _historyTasks.Push(_redoTasks.Pop());
+        }
+
+        return _historyTasks.Peek().Item2.Clone;
     }
+
+    public bool CanDoRedo() => _historyTasks.Count > 0;
 }

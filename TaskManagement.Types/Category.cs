@@ -13,7 +13,7 @@ public enum Category
 
 public static class CategoryExtension
 {
-    private static string[] Messages =
+    private static readonly string[] Messages =
     {
         "Seleccione Una",
         "Personal",
