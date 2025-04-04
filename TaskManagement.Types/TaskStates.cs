@@ -1,6 +1,6 @@
 ﻿namespace TaskManagement.Types;
 
-public enum TaskState
+public enum TaskStates
 {
     ToDo,
     InProgress,
@@ -16,7 +16,7 @@ public static class TaskStateExtension
         "Realizada"
     };
 
-    public static string GetMesage(this TaskState taskState)
+    public static string GetMesage(this TaskStates taskState)
     {
         return Messages[(int)taskState];
     }

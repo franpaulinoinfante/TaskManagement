@@ -2,7 +2,7 @@
 
 namespace TaskManagement.TaskViews.TaskStackViews;
 
-public class TaskActionsView
+public class TaskActionsRedoView
 {
     public required int Id { get; set; }
     public required string Title { get; set; }

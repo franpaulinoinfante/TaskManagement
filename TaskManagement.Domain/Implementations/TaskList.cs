@@ -34,12 +34,19 @@ public class TaskList
         _tasks.Add(task);
     }
 
+    public void AddRedo(TaskItem task)
+    {
+        Debug.Assert(task != null);
+
+        _tasks.Add(task);
+    }
+
     public void Update(TaskItem taskItemToUpdate)
     {
         Debug.Assert(taskItemToUpdate != null);
 
         int index = _tasks.FindIndex(t => t.Id == taskItemToUpdate.Id);
-        if (index != -1)
+        if (index >= 0)
         {
             _tasks[index] = taskItemToUpdate;
         }
@@ -50,5 +57,17 @@ public class TaskList
         Debug.Assert(task != null);
 
         _tasks.Remove(task);
+    }
+
+    public void RemoveAtId(int id)
+    {
+        Debug.Assert(id >= 0);
+        Debug.Assert(_tasks.Count > 0);
+
+        TaskItem? task = GetTask(id);
+        if (task != null)
+        {
+            _tasks.Remove(task);
+        }
     }
 }

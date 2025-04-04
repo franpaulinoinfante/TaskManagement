@@ -2,8 +2,8 @@
 using TaskManagement.Domain.Implementations;
 using TaskManagement.TaskViews;
 using TaskManagement.TaskViews.TaskListViews;
+using TaskManagement.TaskViews.TaskQueueViews;
 using TaskManagement.TaskViews.TaskStackViews;
-using TaskManagement.TaskViews.TaskViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
@@ -31,12 +31,6 @@ public class TaskManagementController
         {
             AddTask(task);
         }
-
-        List<TaskItemCreateView> subTaksSeed = new SeedSubTasks().GetSeedTask();
-        foreach (TaskItemCreateView subTask in subTaksSeed)
-        {
-            AddSubTask(subTask);
-        }
     }
 
     public TaskItemListView GetTaskItemById(int id)
@@ -58,7 +52,7 @@ public class TaskManagementController
             Title = taskItem.Title,
             Description = taskItem.Description,
             PriorityLevel = taskItem.PriorityLevel,
-            TaskState = taskItem.TaskState,
+            TaskStates = taskItem.TaskStates,
             Category = taskItem.Category,
             DueDate = taskItem.DueDate
         };
@@ -76,7 +70,7 @@ public class TaskManagementController
                     Id = taskItem.Id,
                     Title = taskItem.Title,
                     PriorityLevel = taskItem.PriorityLevel,
-                    TaskState = taskItem.TaskState,
+                    TaskStates = taskItem.TaskStates,
                     Category = taskItem.Category,
                     DueDate = taskItem.DueDate
                 });
@@ -86,15 +80,15 @@ public class TaskManagementController
         }
     }
 
-    public IReadOnlyList<TaskActionsView> TaskActionsHistory
+    public IReadOnlyList<TaskActionsHistoryView> TaskActionsHistory
     {
         get
         {
-            List<TaskActionsView> historyTaskActions = new List<TaskActionsView>();
-            IReadOnlyList<(ActionOnTask, TaskItem)> taskActions = _taskStack.HistoryTaskActions;
+            List<TaskActionsHistoryView> historyTaskActions = new List<TaskActionsHistoryView>();
+            IReadOnlyList<(ActionOnTask, TaskItem)> taskActions = _taskStack.TaskActionsHistory;
             foreach ((ActionOnTask, TaskItem) action in taskActions)
             {
-                historyTaskActions.Add(new TaskActionsView()
+                historyTaskActions.Add(new TaskActionsHistoryView()
                 {
                     Id = action.Item2.Id,
                     Title = action.Item2.Title,
@@ -103,6 +97,49 @@ public class TaskManagementController
             }
 
             return historyTaskActions;
+        }
+    }
+
+    public IReadOnlyList<TaskUrgentsView> TaskItemUrgents
+    {
+        get
+        {
+            List<TaskUrgentsView> taskUrgents = new List<TaskUrgentsView>();
+            foreach (var taskUrgent in _taskQueue.TaskUrgents)
+            {
+                taskUrgents.Add(new TaskUrgentsView
+                {
+                    Id = taskUrgent.Id,
+                    Title = taskUrgent.Title,
+                    Description = taskUrgent.Description,
+                    PriorityLevel = taskUrgent.PriorityLevel,
+                    TaskStates = taskUrgent.TaskStates,
+                    Category = taskUrgent.Category,
+                    DueDate = taskUrgent.DueDate
+                });
+            }
+
+            return taskUrgents;
+        }
+    }
+
+    public IReadOnlyList<TaskActionsRedoView> TaskActionsRedos
+    {
+        get
+        {
+            List<TaskActionsRedoView> taskActionsRedoView = new List<TaskActionsRedoView>();
+            IReadOnlyList<(ActionOnTask, TaskItem)> taskActionsRedos = _taskStack.TaskActionsRedo;
+            foreach ((ActionOnTask, TaskItem) redos in taskActionsRedos)
+            {
+                taskActionsRedoView.Add(new TaskActionsRedoView()
+                {
+                    Id = redos.Item2.Id,
+                    Title = redos.Item2.Title,
+                    ActionOnTask = redos.Item1
+                });
+            }
+
+            return taskActionsRedoView;
         }
     }
 
@@ -117,7 +154,7 @@ public class TaskManagementController
         {
             Title = createView.Title,
             Description = createView.Description,
-            TaskState = createView.TaskState,
+            TaskStates = createView.TaskStates,
             Category = createView.Category,
             PriorityLevel = createView.PriorityLevel,
             DueDate = createView.DueDate
@@ -130,33 +167,6 @@ public class TaskManagementController
         //{
         //    _taskQueue.Enqueue(taskItem.Clone);
         //}
-    }
-
-    public void AddSubTask(TaskItemCreateView createView)
-    {
-        if (createView is null)
-        {
-            throw new ArgumentNullException();
-        }
-
-        TaskItem taskItem = new TaskItem()
-        {
-            Title = createView.Title,
-            Description = createView.Description,
-            TaskState = createView.TaskState,
-            Category = createView.Category,
-            PriorityLevel = createView.PriorityLevel,
-            DueDate = createView.DueDate
-        };
-
-        TaskItem? taskItemToUpdate = _taskList.GetTask(createView.Id);
-        if (taskItemToUpdate is null)
-        {
-            throw new InvalidOperationException("Tarea no encontrada, no se puede agregar una subtarea");
-        }
-
-        _taskList.Update(taskItemToUpdate);
-        _taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
     }
 
     public void UpdateTask(TaskItemUpdateView updateView)
@@ -174,7 +184,7 @@ public class TaskManagementController
 
         taskItemToUpdate.Title = updateView.Title;
         taskItemToUpdate.Description = updateView.Description;
-        taskItemToUpdate.TaskState = updateView.TaskState;
+        taskItemToUpdate.TaskStates = updateView.TaskStates;
         taskItemToUpdate.Category = updateView.Category;
         taskItemToUpdate.PriorityLevel = updateView.PriorityLevel;
         taskItemToUpdate.DueDate = updateView.DueDate;
@@ -205,27 +215,40 @@ public class TaskManagementController
         _taskList.Remove(taskToRemove);
     }
 
-    public void UpdateState(UpdateTaskStateView updateTaskStateView)
+    public void Undo()
     {
-        if (updateTaskStateView == null || updateTaskStateView.Id <= 0)
+        if (!_taskStack.CanDoUndo())
         {
-            throw new ArgumentNullException();
+            throw new InvalidOperationException("No se puede deshacer la primera versión");
         }
 
-        TaskItem? taskItem = _taskList.GetTask(updateTaskStateView.Id);
-        if (taskItem == null)
-        {
-            throw new InvalidOperationException("Tarea no encontrada");
-        }
+        // preguntar al profesor si cuando realizo el undo o el redo, se actualiza la lista o solo se presentas las acciones en el historial stack????
 
-        taskItem.TaskState = updateTaskStateView.TaskState;
-        _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
-        _taskList.Update(taskItem);
+        TaskItem taskItemBefore = _taskStack.Undo();
+        if (_taskList.TasksByPriorityAndDueDate.Count > 0)
+        {
+            _taskList.RemoveAtId(taskItemBefore.Id);
+        }
+        else
+        {
+            _taskList.Add(taskItemBefore);
+        }
     }
 
-    public void MarkTaskUrgent(UpdateLavelStateView updateLavelStateView)
+    public void Redo()
     {
-        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Urgent || updateLavelStateView.Id <= 0)
+        if (!_taskStack.CanDoRedo())
+        {
+            throw new InvalidOperationException("No existen acciones para rehacer");
+        }
+
+        TaskItem taskItemAfter = _taskStack.Redo();
+        _taskList.AddRedo(taskItemAfter);
+    }
+
+    public void MarkTaskUrgent(UpdatePriorityLevel updateLavelStateView)
+    {
+        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Urgent || !(updateLavelStateView.Id > 0))
         {
             throw new ArgumentNullException();
         }
@@ -243,7 +266,27 @@ public class TaskManagementController
         _taskQueue.Enqueue(taskItem);
     }
 
-    public void MarkTaskNormal(UpdateLavelStateView updateLavelStateView)
+    public bool AnyTask() => _taskList.TasksByPriorityAndDueDate.Any();
+
+    public void UpdateState(UpdateTaskStatesView updateTaskStateView)
+    {
+        if (updateTaskStateView == null || updateTaskStateView.Id <= 0)
+        {
+            throw new ArgumentNullException();
+        }
+
+        TaskItem? taskItem = _taskList.GetTask(updateTaskStateView.Id);
+        if (taskItem == null)
+        {
+            throw new InvalidOperationException("Tarea no encontrada");
+        }
+
+        taskItem.TaskStates = updateTaskStateView.TaskStates;
+        _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
+        _taskList.Update(taskItem);
+    }
+
+    public void MarkTaskNormal(UpdatePriorityLevel updateLavelStateView)
     {
         if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Normal || updateLavelStateView.Id <= 0)
         {
@@ -263,22 +306,21 @@ public class TaskManagementController
         _taskQueue.Enqueue(taskItem);
     }
 
-    public void Undo()
+    public void ProcessUrgentTask()
     {
-        if (!_taskStack.CanDoUndo())
+        if (!_taskQueue.Any())
         {
-            throw new InvalidOperationException("No se puede deshacer");
+            throw new InvalidOperationException("No hay tareas urgentes");
         }
 
-        TaskItem taskItemBefore = _taskStack.Undo();
-        _taskList.Update(taskItemBefore);
+        TaskItem taskItem = _taskQueue.Dequeue();
+        taskItem.TaskStates = TaskStates.Done;
+        _taskStack.Push(ActionOnTask.Update, taskItem);
+        _taskList.RemoveAtId(taskItem.Id);
     }
 
-    public void Redo()
+    public bool AnyTaskUrgent()
     {
-        if (_taskStack.RedoTasks.Count > 0)
-        {
-            _taskStack.Redo();
-        }
+        return _taskQueue.Any();
     }
 }

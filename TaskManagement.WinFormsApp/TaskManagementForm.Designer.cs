@@ -28,6 +28,7 @@ partial class TaskManagementForm
     /// </summary>
     private void InitializeComponent()
     {
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(TaskManagementForm));
         label1 = new Label();
         txtId = new TextBox();
         txtTitle = new TextBox();
@@ -46,11 +47,13 @@ partial class TaskManagementForm
         tabStack = new TabPage();
         label10 = new Label();
         label8 = new Label();
-        button2 = new Button();
+        btnRedo = new Button();
         btnUndo = new Button();
-        listView3 = new ListView();
-        listTaskHistoryStack = new ListView();
+        listTaskActionsRedos = new ListView();
+        listTaskActionsHistory = new ListView();
         tabQueue = new TabPage();
+        btnProcessTask = new Button();
+        listTaskUrgent = new ListView();
         tabTree = new TabPage();
         cbbCategory = new ComboBox();
         rdbNormal = new RadioButton();
@@ -58,12 +61,15 @@ partial class TaskManagementForm
         btnSave = new Button();
         groupBox1 = new GroupBox();
         groupBox2 = new GroupBox();
+        button1 = new Button();
+        btnMarkTaskUrgent = new Button();
         btnUpdate = new Button();
         btnNew = new Button();
         btnDelete = new Button();
         tabControl1.SuspendLayout();
         tabList.SuspendLayout();
         tabStack.SuspendLayout();
+        tabQueue.SuspendLayout();
         groupBox1.SuspendLayout();
         groupBox2.SuspendLayout();
         SuspendLayout();
@@ -92,7 +98,7 @@ partial class TaskManagementForm
         txtTitle.Enabled = false;
         txtTitle.Location = new Point(180, 12);
         txtTitle.Name = "txtTitle";
-        txtTitle.Size = new Size(489, 27);
+        txtTitle.Size = new Size(589, 27);
         txtTitle.TabIndex = 1;
         // 
         // label2
@@ -129,11 +135,11 @@ partial class TaskManagementForm
         // 
         label7.AutoSize = true;
         label7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label7.Location = new Point(304, 40);
+        label7.Location = new Point(347, 48);
         label7.Name = "label7";
-        label7.Size = new Size(98, 40);
+        label7.Size = new Size(163, 20);
         label7.TabIndex = 9;
-        label7.Text = "Fecha de \r\nVencimiento:";
+        label7.Text = "Fecha de Vencimiento:";
         // 
         // txtDescription
         // 
@@ -142,15 +148,15 @@ partial class TaskManagementForm
         txtDescription.Multiline = true;
         txtDescription.Name = "txtDescription";
         txtDescription.ScrollBars = ScrollBars.Vertical;
-        txtDescription.Size = new Size(755, 68);
+        txtDescription.Size = new Size(757, 68);
         txtDescription.TabIndex = 6;
         // 
         // dtpDueDate
         // 
         dtpDueDate.Enabled = false;
-        dtpDueDate.Location = new Point(408, 43);
+        dtpDueDate.Location = new Point(516, 43);
         dtpDueDate.Name = "dtpDueDate";
-        dtpDueDate.Size = new Size(261, 27);
+        dtpDueDate.Size = new Size(253, 27);
         dtpDueDate.TabIndex = 3;
         // 
         // rdbToDo
@@ -158,7 +164,7 @@ partial class TaskManagementForm
         rdbToDo.AutoSize = true;
         rdbToDo.Checked = true;
         rdbToDo.Enabled = false;
-        rdbToDo.Location = new Point(6, 26);
+        rdbToDo.Location = new Point(6, 20);
         rdbToDo.Name = "rdbToDo";
         rdbToDo.Size = new Size(92, 24);
         rdbToDo.TabIndex = 13;
@@ -198,7 +204,7 @@ partial class TaskManagementForm
         tabControl1.Location = new Point(0, 212);
         tabControl1.Name = "tabControl1";
         tabControl1.SelectedIndex = 0;
-        tabControl1.Size = new Size(905, 431);
+        tabControl1.Size = new Size(912, 431);
         tabControl1.TabIndex = 10;
         // 
         // tabList
@@ -207,7 +213,7 @@ partial class TaskManagementForm
         tabList.Location = new Point(4, 29);
         tabList.Name = "tabList";
         tabList.Padding = new Padding(3);
-        tabList.Size = new Size(897, 398);
+        tabList.Size = new Size(904, 398);
         tabList.TabIndex = 0;
         tabList.Text = "Lista";
         tabList.UseVisualStyleBackColor = true;
@@ -218,7 +224,7 @@ partial class TaskManagementForm
         listTaksItems.FullRowSelect = true;
         listTaksItems.Location = new Point(3, 3);
         listTaksItems.Name = "listTaksItems";
-        listTaksItems.Size = new Size(891, 392);
+        listTaksItems.Size = new Size(898, 392);
         listTaksItems.TabIndex = 0;
         listTaksItems.UseCompatibleStateImageBehavior = false;
         listTaksItems.View = View.Details;
@@ -228,14 +234,14 @@ partial class TaskManagementForm
         // 
         tabStack.Controls.Add(label10);
         tabStack.Controls.Add(label8);
-        tabStack.Controls.Add(button2);
+        tabStack.Controls.Add(btnRedo);
         tabStack.Controls.Add(btnUndo);
-        tabStack.Controls.Add(listView3);
-        tabStack.Controls.Add(listTaskHistoryStack);
-        tabStack.Location = new Point(4, 29);
+        tabStack.Controls.Add(listTaskActionsRedos);
+        tabStack.Controls.Add(listTaskActionsHistory);
+        tabStack.Location = new Point(4, 24);
         tabStack.Name = "tabStack";
         tabStack.Padding = new Padding(3);
-        tabStack.Size = new Size(897, 398);
+        tabStack.Size = new Size(904, 403);
         tabStack.TabIndex = 1;
         tabStack.Text = "Stack";
         tabStack.UseVisualStyleBackColor = true;
@@ -260,14 +266,15 @@ partial class TaskManagementForm
         label8.TabIndex = 24;
         label8.Text = "History";
         // 
-        // button2
+        // btnRedo
         // 
-        button2.Location = new Point(344, 180);
-        button2.Name = "button2";
-        button2.Size = new Size(208, 54);
-        button2.TabIndex = 3;
-        button2.Text = "Redo";
-        button2.UseVisualStyleBackColor = true;
+        btnRedo.Location = new Point(344, 180);
+        btnRedo.Name = "btnRedo";
+        btnRedo.Size = new Size(208, 54);
+        btnRedo.TabIndex = 3;
+        btnRedo.Text = "Redo";
+        btnRedo.UseVisualStyleBackColor = true;
+        btnRedo.Click += btnRedo_Click;
         // 
         // btnUndo
         // 
@@ -279,40 +286,63 @@ partial class TaskManagementForm
         btnUndo.UseVisualStyleBackColor = true;
         btnUndo.Click += btnUndo_Click;
         // 
-        // listView3
+        // listTaskActionsRedos
         // 
-        listView3.Location = new Point(568, 26);
-        listView3.Name = "listView3";
-        listView3.Size = new Size(321, 366);
-        listView3.TabIndex = 1;
-        listView3.UseCompatibleStateImageBehavior = false;
+        listTaskActionsRedos.Location = new Point(568, 26);
+        listTaskActionsRedos.Name = "listTaskActionsRedos";
+        listTaskActionsRedos.Size = new Size(321, 366);
+        listTaskActionsRedos.TabIndex = 1;
+        listTaskActionsRedos.UseCompatibleStateImageBehavior = false;
         // 
-        // listTaskHistoryStack
+        // listTaskActionsHistory
         // 
-        listTaskHistoryStack.FullRowSelect = true;
-        listTaskHistoryStack.Location = new Point(6, 26);
-        listTaskHistoryStack.Name = "listTaskHistoryStack";
-        listTaskHistoryStack.Size = new Size(321, 364);
-        listTaskHistoryStack.TabIndex = 0;
-        listTaskHistoryStack.UseCompatibleStateImageBehavior = false;
-        listTaskHistoryStack.View = View.Details;
+        listTaskActionsHistory.FullRowSelect = true;
+        listTaskActionsHistory.Location = new Point(6, 26);
+        listTaskActionsHistory.Name = "listTaskActionsHistory";
+        listTaskActionsHistory.Size = new Size(321, 364);
+        listTaskActionsHistory.TabIndex = 0;
+        listTaskActionsHistory.UseCompatibleStateImageBehavior = false;
+        listTaskActionsHistory.View = View.Details;
         // 
         // tabQueue
         // 
-        tabQueue.Location = new Point(4, 24);
+        tabQueue.Controls.Add(btnProcessTask);
+        tabQueue.Controls.Add(listTaskUrgent);
+        tabQueue.Location = new Point(4, 29);
         tabQueue.Name = "tabQueue";
         tabQueue.Padding = new Padding(3);
-        tabQueue.Size = new Size(897, 403);
+        tabQueue.Size = new Size(904, 398);
         tabQueue.TabIndex = 2;
         tabQueue.Text = "Queue";
         tabQueue.UseVisualStyleBackColor = true;
+        // 
+        // btnProcessTask
+        // 
+        btnProcessTask.Location = new Point(395, 362);
+        btnProcessTask.Name = "btnProcessTask";
+        btnProcessTask.Size = new Size(75, 28);
+        btnProcessTask.TabIndex = 11;
+        btnProcessTask.Text = "Procesar";
+        btnProcessTask.UseVisualStyleBackColor = true;
+        btnProcessTask.Click += btnProcessTask_Click;
+        // 
+        // listTaskUrgent
+        // 
+        listTaskUrgent.Dock = DockStyle.Top;
+        listTaskUrgent.FullRowSelect = true;
+        listTaskUrgent.Location = new Point(3, 3);
+        listTaskUrgent.Name = "listTaskUrgent";
+        listTaskUrgent.Size = new Size(898, 353);
+        listTaskUrgent.TabIndex = 1;
+        listTaskUrgent.UseCompatibleStateImageBehavior = false;
+        listTaskUrgent.View = View.Details;
         // 
         // tabTree
         // 
         tabTree.Location = new Point(4, 24);
         tabTree.Name = "tabTree";
         tabTree.Padding = new Padding(3);
-        tabTree.Size = new Size(897, 403);
+        tabTree.Size = new Size(904, 403);
         tabTree.TabIndex = 3;
         tabTree.Text = "Tree";
         tabTree.UseVisualStyleBackColor = true;
@@ -324,7 +354,7 @@ partial class TaskManagementForm
         cbbCategory.FormattingEnabled = true;
         cbbCategory.Location = new Point(97, 45);
         cbbCategory.Name = "cbbCategory";
-        cbbCategory.Size = new Size(201, 28);
+        cbbCategory.Size = new Size(239, 28);
         cbbCategory.TabIndex = 2;
         // 
         // rdbNormal
@@ -367,23 +397,46 @@ partial class TaskManagementForm
         groupBox1.Controls.Add(rdbToDo);
         groupBox1.Controls.Add(rdbInProgress);
         groupBox1.Controls.Add(rdbDone);
-        groupBox1.Location = new Point(773, 12);
+        groupBox1.Location = new Point(775, 97);
         groupBox1.Name = "groupBox1";
-        groupBox1.Size = new Size(120, 120);
+        groupBox1.Size = new Size(130, 109);
         groupBox1.TabIndex = 5;
         groupBox1.TabStop = false;
         groupBox1.Text = "Estado";
         // 
         // groupBox2
         // 
+        groupBox2.Controls.Add(button1);
+        groupBox2.Controls.Add(btnMarkTaskUrgent);
         groupBox2.Controls.Add(rdbNormal);
         groupBox2.Controls.Add(rdbUrgent);
-        groupBox2.Location = new Point(675, 12);
+        groupBox2.Location = new Point(775, 5);
         groupBox2.Name = "groupBox2";
-        groupBox2.Size = new Size(92, 89);
+        groupBox2.Size = new Size(130, 89);
         groupBox2.TabIndex = 4;
         groupBox2.TabStop = false;
         groupBox2.Text = "Prioridad";
+        // 
+        // button1
+        // 
+        button1.Enabled = false;
+        button1.Image = (Image)resources.GetObject("button1.Image");
+        button1.Location = new Point(92, 19);
+        button1.Name = "button1";
+        button1.Size = new Size(34, 32);
+        button1.TabIndex = 12;
+        button1.UseVisualStyleBackColor = true;
+        // 
+        // btnMarkTaskUrgent
+        // 
+        btnMarkTaskUrgent.Enabled = false;
+        btnMarkTaskUrgent.Image = (Image)resources.GetObject("btnMarkTaskUrgent.Image");
+        btnMarkTaskUrgent.Location = new Point(92, 55);
+        btnMarkTaskUrgent.Name = "btnMarkTaskUrgent";
+        btnMarkTaskUrgent.Size = new Size(34, 31);
+        btnMarkTaskUrgent.TabIndex = 11;
+        btnMarkTaskUrgent.UseVisualStyleBackColor = true;
+        btnMarkTaskUrgent.Click += btnMarkTaskUrgent_Click;
         // 
         // btnUpdate
         // 
@@ -420,7 +473,7 @@ partial class TaskManagementForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(905, 643);
+        ClientSize = new Size(912, 643);
         Controls.Add(btnDelete);
         Controls.Add(btnNew);
         Controls.Add(btnUpdate);
@@ -441,7 +494,6 @@ partial class TaskManagementForm
         Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
         Margin = new Padding(3, 4, 3, 4);
         MaximizeBox = false;
-        MaximumSize = new Size(921, 682);
         MinimizeBox = false;
         MinimumSize = new Size(921, 682);
         Name = "TaskManagementForm";
@@ -452,6 +504,7 @@ partial class TaskManagementForm
         tabList.ResumeLayout(false);
         tabStack.ResumeLayout(false);
         tabStack.PerformLayout();
+        tabQueue.ResumeLayout(false);
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         groupBox2.ResumeLayout(false);
@@ -484,14 +537,18 @@ partial class TaskManagementForm
     private ListView listTaksItems;
     private Label label10;
     private Label label8;
-    private Button button2;
+    private Button btnRedo;
     private Button btnUndo;
-    private ListView listView3;
-    private ListView listTaskHistoryStack;
+    private ListView listTaskActionsRedos;
+    private ListView listTaskActionsHistory;
     private Button btnSave;
     private GroupBox groupBox1;
     private GroupBox groupBox2;
     private Button btnUpdate;
     private Button btnNew;
     private Button btnDelete;
+    private Button btnMarkTaskUrgent;
+    private ListView listTaskUrgent;
+    private Button button1;
+    private Button btnProcessTask;
 }

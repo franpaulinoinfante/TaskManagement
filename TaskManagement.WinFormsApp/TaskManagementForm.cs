@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel;
 using TaskManagement.Controllers;
+using TaskManagement.TaskViews;
 using TaskManagement.TaskViews.TaskListViews;
+using TaskManagement.TaskViews.TaskStackViews;
+using TaskManagement.TaskViews.TaskQueueViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.WinFormsApp;
@@ -95,33 +98,33 @@ public partial class TaskManagementForm : Form
     }
 
     [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
-    public TaskState TaskState
+    public TaskStates TaskStates
     {
         get
         {
             if (rdbToDo.Checked)
             {
-                return Types.TaskState.ToDo;
+                return Types.TaskStates.ToDo;
             }
 
             if (rdbInProgress.Checked)
             {
-                return Types.TaskState.InProgress;
+                return Types.TaskStates.InProgress;
             }
 
-            return TaskState.Done;
+            return Types.TaskStates.Done;
         }
         set
         {
             switch (value)
             {
-                case TaskState.ToDo:
+                case Types.TaskStates.ToDo:
                     rdbToDo.Checked = true;
                     break;
-                case TaskState.InProgress:
+                case Types.TaskStates.InProgress:
                     rdbInProgress.Checked = true;
                     break;
-                case TaskState.Done:
+                case Types.TaskStates.Done:
                     rdbDone.Checked = true;
                     break;
             }
@@ -168,10 +171,23 @@ public partial class TaskManagementForm : Form
         listTaksItems.Columns.Add("Categoria", 175);
         listTaksItems.Columns.Add("Fecha Vencimiento", 160);
 
-        listTaskHistoryStack.View = View.Details;
-        listTaskHistoryStack.Columns.Add("Id", 50);
-        listTaskHistoryStack.Columns.Add("Title", 150);
-        listTaskHistoryStack.Columns.Add("Acción", 100);
+        listTaskActionsHistory.View = View.Details;
+        listTaskActionsHistory.Columns.Add("Id", 50);
+        listTaskActionsHistory.Columns.Add("Title", 150);
+        listTaskActionsHistory.Columns.Add("Acción", 100);
+
+        listTaskActionsRedos.View = View.Details;
+        listTaskActionsRedos.Columns.Add("Id", 50);
+        listTaskActionsRedos.Columns.Add("Title", 150);
+        listTaskActionsRedos.Columns.Add("Acción", 100);
+
+        listTaskUrgent.View = View.Details;
+        listTaskUrgent.Columns.Add("Id", 50);
+        listTaskUrgent.Columns.Add("Title", 310);
+        listTaskUrgent.Columns.Add("Priodidad", 85);
+        listTaskUrgent.Columns.Add("Estado", 100);
+        listTaskUrgent.Columns.Add("Categoria", 175);
+        listTaskUrgent.Columns.Add("Fecha Vencimiento", 160);
     }
 
     private void TaskManagementForm_Load(object sender, EventArgs e)
@@ -183,6 +199,13 @@ public partial class TaskManagementForm : Form
             btnUpdate.Enabled = true;
         }
         //DisplayTaskByPriorityAndDueDate();
+
+        if (_taskManagementController.AnyTask())
+        {
+            btnMarkTaskUrgent.Enabled = true;
+        }
+
+        DisplayTaskUrgents();
     }
 
     private void LoadCategories()
@@ -212,7 +235,7 @@ public partial class TaskManagementForm : Form
                     {
                         Title = this.Title,
                         Description = this.Description,
-                        TaskState = this.TaskState,
+                        TaskStates = this.TaskStates,
                         Category = this.Category,
                         PriorityLevel = this.PriorityLevel,
                         DueDate = this.DueDate
@@ -224,11 +247,14 @@ public partial class TaskManagementForm : Form
                         Id = Id,
                         Title = Title,
                         Description = Description,
-                        TaskState = TaskState,
+                        TaskStates = TaskStates,
                         Category = Category,
                         PriorityLevel = PriorityLevel,
                         DueDate = DueDate
                     });
+
+
+                    listTaksItems.FullRowSelect = true;
                     break;
             }
         }
@@ -264,21 +290,14 @@ public partial class TaskManagementForm : Form
 
         try
         {
-            IReadOnlyList<TaskItemListView> taskItems = _taskManagementController.TaskItemListViews;
-            if (!taskItems.Any())
-            {
-                MessageBox.Show("No se ha creado tarea", "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            foreach (TaskItemListView taskItem in taskItems)
+            foreach (TaskItemListView taskItem in _taskManagementController.TaskItemListViews)
             {
                 listTaksItems.Items.Add(new ListViewItem(new[]
                 {
                     taskItem.Id.ToString(),
                     taskItem.Title,
                     taskItem.PriorityLevel.GetMesage(),
-                    taskItem.TaskState.GetMesage(),
+                    taskItem.TaskStates.GetMesage(),
                     taskItem.Category.GetMesage(),
                     taskItem.DueDate.ToString()
                 }));
@@ -308,7 +327,7 @@ public partial class TaskManagementForm : Form
             Description = taskItemListView.Description!;
             Category = taskItemListView.Category;
             PriorityLevel = taskItemListView.PriorityLevel;
-            TaskState = taskItemListView.TaskState;
+            TaskStates = taskItemListView.TaskStates;
             DueDate = taskItemListView.DueDate;
         }
         catch (InvalidOperationException ex)
@@ -329,6 +348,7 @@ public partial class TaskManagementForm : Form
         btnNew.Enabled = false;
         btnUpdate.Enabled = false;
         btnDelete.Enabled = false;
+        btnMarkTaskUrgent.Enabled = false;
     }
 
     private void ClearFields()
@@ -337,6 +357,7 @@ public partial class TaskManagementForm : Form
         txtTitle.Clear();
         txtDescription.Clear();
         rdbToDo.Checked = true;
+        rdbNormal.Checked = true;
         cbbCategory.SelectedIndex = 0;
     }
 
@@ -353,6 +374,9 @@ public partial class TaskManagementForm : Form
         rdbToDo.Enabled = true;
         rdbInProgress.Enabled = true;
         rdbDone.Enabled = true;
+
+        tabControl1.SelectedTab = tabList;
+
         txtTitle.Focus();
     }
 
@@ -371,6 +395,9 @@ public partial class TaskManagementForm : Form
         btnUpdate.Enabled = false;
         btnNew.Enabled = false;
         btnDelete.Enabled = false;
+        btnMarkTaskUrgent.Enabled = false;
+
+        listTaksItems.FullRowSelect = false;
     }
 
     private void DisabledFields()
@@ -378,6 +405,7 @@ public partial class TaskManagementForm : Form
         btnNew.Enabled = true;
         btnUpdate.Enabled = true;
         btnDelete.Enabled = true;
+        btnMarkTaskUrgent.Enabled = true;
 
         btnSave.Enabled = false;
 
@@ -427,20 +455,13 @@ public partial class TaskManagementForm : Form
 
     private void DisplayTaskActionHistory()
     {
-        listTaskHistoryStack.Items.Clear();
+        listTaskActionsHistory.Items.Clear();
 
         try
         {
-            IReadOnlyList<TaskViews.TaskStackViews.TaskActionsView> taskActionsHistory = _taskManagementController.TaskActionsHistory;
-            if (!taskActionsHistory.Any())
+            foreach (TaskActionsHistoryView taskItem in _taskManagementController.TaskActionsHistory)
             {
-                MessageBox.Show("No se ha creado tarea", "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
-
-            foreach (TaskViews.TaskStackViews.TaskActionsView taskItem in taskActionsHistory)
-            {
-                listTaskHistoryStack.Items.Add(new ListViewItem(new[]
+                listTaskActionsHistory.Items.Add(new ListViewItem(new[]
                 {
                     taskItem.Id.ToString(),
                     taskItem.Title,
@@ -468,6 +489,139 @@ public partial class TaskManagementForm : Form
         {
             DisplayTaskByPriorityAndDueDate();
             DisplayTaskActionHistory();
+            DisplayTaskRepos();
+        }
+    }
+
+    private void DisplayTaskRepos()
+    {
+        listTaskActionsRedos.Items.Clear();
+
+        try
+        {
+            IReadOnlyList<TaskActionsRedoView> taskActionsRedos = _taskManagementController.TaskActionsRedos;
+            if (taskActionsRedos.Any())
+            {
+                foreach (TaskActionsRedoView taskRepos in taskActionsRedos)
+                {
+                    listTaskActionsRedos.Items.Add(new ListViewItem(new[]
+                    {
+                    taskRepos.Id.ToString(),
+                    taskRepos.Title,
+                    taskRepos.ActionOnTask.GetMesage()
+                }));
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Información!!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+    }
+
+    private void btnRedo_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            _taskManagementController.Redo();
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        finally
+        {
+            DisplayTaskByPriorityAndDueDate();
+            DisplayTaskActionHistory();
+            DisplayTaskRepos();
+        }
+    }
+
+    private void btnMarkTaskUrgent_Click(object sender, EventArgs e)
+    {
+        if (listTaksItems.Items.Count == 0)
+        {
+            MessageBox.Show("La lista de tarea esta vacia", "Advertencia!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        if (listTaksItems.SelectedItems.Count == 0)
+        {
+            MessageBox.Show("Debe seleccionar una tarea", "Advertencia!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        try
+        {
+            _taskManagementController.MarkTaskUrgent(new UpdatePriorityLevel() { Id = Id, PriorityLevel = PriorityLevel.Urgent });
+        }
+        catch (ArgumentNullException ex)
+        {
+            MessageBox.Show(ex.Message, "Error!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message, "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        finally
+        {
+            DisplayTaskByPriorityAndDueDate();
+            DisplayTaskActionHistory();
+            DisplayTaskRepos();
+            DisplayTaskUrgents();
+
+            tabControl1.SelectedTab = tabQueue;
+        }
+    }
+
+    private void DisplayTaskUrgents()
+    {
+        listTaskUrgent.Items.Clear();
+        try
+        {
+            IReadOnlyList<TaskUrgentsView> taskUrgents = _taskManagementController.TaskItemUrgents;
+            foreach (TaskUrgentsView taskUrgent in taskUrgents)
+            {
+                listTaskUrgent.Items.Add(new ListViewItem(new[]
+                {
+                    taskUrgent.Id.ToString(),
+                    taskUrgent.Title,
+                    taskUrgent.PriorityLevel.GetMesage(),
+                    taskUrgent.TaskStates.GetMesage(),
+                    taskUrgent.Category.GetMesage(),
+                    taskUrgent.DueDate.ToString()
+                }));
+            }
+
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show(ex.Message, "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+    }
+
+    private void btnProcessTask_Click(object sender, EventArgs e)
+    {
+        //if (listTaksItems.Items.Count == 0)
+        //{
+        //    MessageBox.Show("No existen tareas", "Advertencia!!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //}
+
+        try
+        {
+            _taskManagementController.ProcessUrgentTask();
+        }
+        catch (InvalidOperationException ex)
+        {
+            MessageBox.Show(ex.Message, "Advertencia!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        }
+        finally
+        {
+            DisplayTaskByPriorityAndDueDate();
+            DisplayTaskActionHistory();
+            DisplayTaskRepos();
+            DisplayTaskUrgents();
         }
     }
 }

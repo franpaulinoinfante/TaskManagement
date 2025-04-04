@@ -2,8 +2,8 @@
 
 namespace TaskManagement.TaskViews;
 
-public record UpdateTaskStateView
+public record UpdateTaskStatesView
 {
     public required int Id { get; set; }
-    public required TaskState TaskState { get; set; }
+    public required TaskStates TaskStates { get; set; }
 }

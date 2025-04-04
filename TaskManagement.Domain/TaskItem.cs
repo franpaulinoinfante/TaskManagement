@@ -25,7 +25,7 @@ public class TaskItem
 
     public required string Title { get; set; }
     public required string Description { get; set; }
-    public required TaskState TaskState { get; set; }
+    public required TaskStates TaskStates { get; set; }
     public required Category Category { get; set; }
     public required PriorityLevel PriorityLevel { get; set; }
     public DateTime CreatedAt { get; init; }
@@ -36,7 +36,7 @@ public class TaskItem
         Id = this.Id,
         Title = this.Title,
         Description = this.Description,
-        TaskState = this.TaskState,
+        TaskStates = this.TaskStates,
         Category = this.Category,
         PriorityLevel = this.PriorityLevel,
         CreatedAt = this.CreatedAt,

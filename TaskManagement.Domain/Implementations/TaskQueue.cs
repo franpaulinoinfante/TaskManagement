@@ -11,7 +11,7 @@ public class TaskQueue
         _taskQueue = [];
     }
 
-    public IReadOnlyList<TaskItem> UrgentTasks => _taskQueue.ToList();
+    public IReadOnlyList<TaskItem> TaskUrgents => _taskQueue.ToList();
 
     public void Enqueue(TaskItem taskItem)
     {
@@ -20,10 +20,12 @@ public class TaskQueue
         _taskQueue.Enqueue(taskItem);
     }
 
-    public void Dequeue(TaskItem taskItem)
+    public TaskItem Dequeue()
     {
-        Debug.Assert(taskItem != null);
+        Debug.Assert(_taskQueue.Count > 0);
 
-        _taskQueue.Dequeue();
+        return _taskQueue.Dequeue().Clone;
     }
+
+    public bool Any() => _taskQueue.Any();
 }

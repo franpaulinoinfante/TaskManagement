@@ -17,6 +17,8 @@ usecase "Display Task Action Redos" as UC205
 
 usecase "Mark Task Urgent" as UC301
 usecase "Mark Task Normal" as UC302
+usecase "Display Urgent Tasks" as UC303
+usecase "Process Task" as UC304
 
 usecase "Mark Task ToDo" as UC402
 usecase "Mark Task In Progress" as UC403
@@ -44,4 +46,11 @@ User --> UC203
     UC203 ..> UC104 : <<include>>
     UC203 ..> UC204 : <<include>>
     UC203 ..> UC205 : <<include>>
+
+User --> UC301
+    UC301 ..> UC303 : <<include>>
+User --> UC302
+    UC302 ..> UC303 : <<include>>
+User --> UC304
+    UC304 ..> UC303 : <<include>>
 @enduml

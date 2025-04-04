@@ -1,0 +1,23 @@
+@startuml ProcessUrgentTaskUseCaseSpecification
+    title Process Urgent Task Use Case Specification
+
+state " " as A
+state " " as B
+state ":DisplayUrgentTasks" as DisplayUrgentTasks
+
+state anyTask <<choice>>
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> A : usuario solicita procesar una tarea
+    A --> anyTask : [existen alguna tarea por procesar]
+        anyTask --> DisplayUrgentTasks : sistema muestra un mensaje de existos
+            note on link
+                La primera tarea de la lista ha sido procesada
+            endnote
+    anyTask --> B : systema muestra un mensaje
+        note on link
+            no existen tarea por procesar
+        endnote
+DisplayUrgentTasks --> [*]
+B --> [*]
+@enduml

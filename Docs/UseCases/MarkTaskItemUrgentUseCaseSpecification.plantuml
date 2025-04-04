@@ -1,0 +1,22 @@
+@startuml MarkTaskItemUrgentUseCaseSpecification
+    title Mark Task Item Urgent UseCaseS pecification
+
+state " " as A
+state " " as B
+state ":DisplayUrgentTasks" as DisplayUrgentTasks
+
+
+state any <<choice>>
+
+[*] --> APPLICATION_STARTED
+    APPLICATION_STARTED --> any : usuario solicita marcar una tarea como urgente 
+        any --> A : [yes]\n sistema le permite seleccionar la teraa a marcar como urgente y\n le permite solicitar marcar la tarea como urgente
+        A --> B : usuario selecciona la tarea y\n solicita marcar la tarea como urgente
+        B --> DisplayUrgentTasks : sistema le muestra un mensaje de exitos! y\n muestra
+        DisplayUrgentTasks --> [*]
+    any --> [*] : sistema muestra un mensaje de advertencia 
+        note on link
+            La lista de tarea esta vacia
+        endnote
+    
+@enduml
