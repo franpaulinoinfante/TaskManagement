@@ -75,3 +75,6 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 
 ### Mark Task Urgent
 ![image](https://github.com/user-attachments/assets/b532ce4f-ffe4-402d-93c6-04c82e6c2c2f)
+
+### Proccess Task
+![image](https://github.com/user-attachments/assets/6d0c6736-d059-405a-b345-e84983ecb2b4)
