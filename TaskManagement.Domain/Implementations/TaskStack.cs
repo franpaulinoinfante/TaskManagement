@@ -36,12 +36,13 @@ public class TaskStack
 
     public TaskItem Undo()
     {
+        TaskItem peek = Peek;
         if (CanDoUndo)
         {
             _redoTasks.Push(_historyTasks.Pop());
         }
 
-        return _historyTasks.Peek().Item2.Clone;
+        return peek;
     }
 
     public TaskItem Redo()

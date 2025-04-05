@@ -1,5 +1,5 @@
-﻿using TaskManagement.Types;
-using TaskManagement.TaskViews;
+﻿using TaskManagement.TaskViews;
+using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
 internal class SeedTasks
@@ -13,7 +13,7 @@ internal class SeedTasks
             Title = "Test 1",
             Description = "Probando funciones",
             TaskStates = TaskStates.ToDo,
-            Category = Category.Trabajo,
+            Category = Category.Work,
             PriorityLevel = PriorityLevel.Urgent,
             DueDate = DateTime.Now
         };
@@ -35,7 +35,7 @@ internal class SeedTasks
             Title = "Test 3",
             Description = "Probando funciones",
             TaskStates = TaskStates.InProgress,
-            Category = Category.Trabajo,
+            Category = Category.Work,
             PriorityLevel = PriorityLevel.Urgent,
             DueDate = DateTime.Now,
         };

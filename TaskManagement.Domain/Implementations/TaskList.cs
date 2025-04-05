@@ -34,7 +34,7 @@ public class TaskList
         _tasks.Add(task);
     }
 
-    public void AddRedo(TaskItem task)
+    public void AddFromActions(TaskItem task)
     {
         Debug.Assert(task != null);
 

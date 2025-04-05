@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using TaskManagement.Controllers;
 using TaskManagement.TaskViews;
+using TaskManagement.TaskViews.CategoryViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.WinFormsApp;
@@ -58,11 +59,11 @@ public partial class TaskManagementForm : Form
         get
         {
             Category[] categories = Enum.GetValues<Category>();
-            return categories[cbbCategory.SelectedIndex];
+            return categories.FirstOrDefault(c => c.GetMesage() == cbbSubCategories.Text);
         }
         set
         {
-            cbbCategory.SelectedIndex = (int)value;
+            cbbSubCategories.SelectedItem = value.GetMesage();
         }
     }
 
@@ -202,15 +203,101 @@ public partial class TaskManagementForm : Form
             btnMarkTaskUrgent.Enabled = true;
         }
 
+        cbbCategory.SelectedIndex = 0;
+
+        DisplayCategoryTree();
+
         DisplayTaskUrgents();
+    }
+
+    private void DisplayCategoryTree()
+    {
+        tvCategory.Nodes.Clear();
+
+        Category[] categoriasPrincipales = new[]
+        {
+            Category.Personal,
+            Category.Work,
+            Category.Studies,
+            Category.Home,
+            Category.Maintenance
+        };
+
+        Dictionary<Category, Category> jerarquiaCategorias = new Dictionary<Category, Category>
+        {
+            // Personal
+            { Category.PersonalDevelopment, Category.Personal },
+            { Category.GoalsAndPlanning, Category.Personal },
+            { Category.SelfLearning, Category.Personal },
+            { Category.JournalingAndReflections, Category.Personal },
+            { Category.HabitsAndRoutines, Category.Personal },      
+
+            // Work
+            { Category.Meetings, Category.Work },
+            { Category.Reports, Category.Work },
+            { Category.SoftwareDevelopment, Category.Work },
+            { Category.DataAnalysis, Category.Work },
+            { Category.Presentations, Category.Work },      
+
+            // Studies
+            { Category.TasksAndProjects, Category.Studies },
+            { Category.Exams, Category.Studies },
+            { Category.PendingReadings, Category.Studies },
+            { Category.ClassesAndCourses, Category.Studies },       
+
+            // Home
+            { Category.Cleaning, Category.Home },
+            { Category.HouseholdShopping, Category.Home },
+            { Category.UtilityPayments, Category.Home },        
+
+            // Maintenance
+            { Category.MedicalAppointments, Category.Maintenance },
+            { Category.Exercise, Category.Maintenance },
+            { Category.Nutrition, Category.Maintenance },
+            { Category.Rest, Category.Maintenance }
+        };
+
+        // Crear nodos raíz para cada categoría principal
+        Dictionary<Category, TreeNode> nodosPrincipales = categoriasPrincipales.ToDictionary(
+            cat => cat,
+            cat => tvCategory.Nodes.Add(cat.ToString())
+        );
+
+        // Agrupar tareas por subcategoría
+        IEnumerable<IGrouping<Category, TaskItemListView>> tareasPorSubcategoria = _taskManagementController.TaskItemListViews
+            .Where(t => jerarquiaCategorias.ContainsKey(t.Category))
+            .GroupBy(t => t.Category);
+
+        foreach (IGrouping<Category, TaskItemListView> grupo in tareasPorSubcategoria)
+        {
+            Category subcategoria = grupo.Key;
+            Category categoriaPrincipal = jerarquiaCategorias[subcategoria];
+            TreeNode nodoPadre = nodosPrincipales[categoriaPrincipal];
+
+            // Crear nodo de subcategoría si no existe
+            TreeNode nodoSubcategoria = nodoPadre.Nodes
+                .Cast<TreeNode>()
+                .FirstOrDefault(n => n.Text == subcategoria.GetMesage())
+                ?? nodoPadre.Nodes.Add(subcategoria.GetMesage());
+
+            // Agregar tareas a la subcategoría
+            foreach (TaskItemListView? tarea in grupo)
+            {
+                nodoSubcategoria.Nodes.Add($"{tarea.Id} - {tarea.Title} - {tarea.TaskStates.GetMesage()} - {tarea.PriorityLevel.GetMesage()} - {tarea.DueDate}");
+            }
+        }
+
+        tvCategory.ExpandAll();
     }
 
     private void LoadCategories()
     {
-        foreach (Category item in Enum.GetValues<Types.Category>())
-        {
-            cbbCategory.Items.Add(item.GetMesage());
-        }
+        cbbCategory.DataSource = MainCategory.GetCategories;
+
+        //foreach (Category item in Enum.GetValues<Types.Category>())
+        //{
+        //    cbbCategory.Items.Add(item.GetMesage());
+        //}
 
         cbbCategory.SelectedIndex = 0;
     }
@@ -262,17 +349,19 @@ public partial class TaskManagementForm : Form
         {
             DisabledFields();
             ClearFields();
-            DisplayTaskActionHistory();
         }
 
         DisplayTaskByPriorityAndDueDate();
+        DisplayTaskActionHistory();
+        DisplayTaskRepos();
+        DisplayCategoryTree();
         SetValueToFields(listTaksItems.Items.Count);
+
     }
 
     private bool IsValidFields()
     {
-        if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Description) ||
-            (Category == Types.Category.None) || (DueDate < DateTime.Today))
+        if (string.IsNullOrWhiteSpace(Title) || string.IsNullOrWhiteSpace(Description) || (DueDate < DateTime.Today))
         {
             return false;
         }
@@ -355,6 +444,8 @@ public partial class TaskManagementForm : Form
         rdbToDo.Checked = true;
         rdbNormal.Checked = true;
         cbbCategory.SelectedIndex = 0;
+
+        cbbSubCategories.Enabled = true;
     }
 
     private void EnabledFields()
@@ -585,7 +676,7 @@ public partial class TaskManagementForm : Form
                     taskUrgent.Title,
                     taskUrgent.PriorityLevel.GetMesage(),
                     taskUrgent.TaskStates.GetMesage(),
-                    taskUrgent.Category.GetMesage(),
+                    taskUrgent.Category.ToString(),
                     taskUrgent.DueDate.ToString()
                 }));
             }
@@ -618,6 +709,26 @@ public partial class TaskManagementForm : Form
             DisplayTaskActionHistory();
             DisplayTaskRepos();
             DisplayTaskUrgents();
+        }
+    }
+
+    private void cbbCategory_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        cbbSubCategories.Items.Clear();
+
+        if (cbbCategory.SelectedItem is Category selectedCategory)
+        {
+            if (SubCategories.SubCategoriesDic.TryGetValue(selectedCategory, out Category[]? subCategories))
+            {
+                foreach (var item in subCategories)
+                {
+                    cbbSubCategories.Items.Add(item.GetMesage());
+                }
+            }
+            else
+            {
+                cbbSubCategories.DataSource = null;
+            }
         }
     }
 }

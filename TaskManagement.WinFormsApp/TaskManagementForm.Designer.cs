@@ -55,6 +55,7 @@ partial class TaskManagementForm
         btnProcessTask = new Button();
         listTaskUrgent = new ListView();
         tabTree = new TabPage();
+        tvCategory = new TreeView();
         cbbCategory = new ComboBox();
         rdbNormal = new RadioButton();
         rdbUrgent = new RadioButton();
@@ -66,10 +67,13 @@ partial class TaskManagementForm
         btnUpdate = new Button();
         btnNew = new Button();
         btnDelete = new Button();
+        cbbSubCategories = new ComboBox();
+        label4 = new Label();
         tabControl1.SuspendLayout();
         tabList.SuspendLayout();
         tabStack.SuspendLayout();
         tabQueue.SuspendLayout();
+        tabTree.SuspendLayout();
         groupBox1.SuspendLayout();
         groupBox2.SuspendLayout();
         SuspendLayout();
@@ -115,7 +119,7 @@ partial class TaskManagementForm
         // 
         label3.AutoSize = true;
         label3.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label3.Location = new Point(12, 81);
+        label3.Location = new Point(12, 134);
         label3.Name = "label3";
         label3.Size = new Size(93, 20);
         label3.TabIndex = 5;
@@ -135,7 +139,7 @@ partial class TaskManagementForm
         // 
         label7.AutoSize = true;
         label7.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-        label7.Location = new Point(347, 48);
+        label7.Location = new Point(11, 84);
         label7.Name = "label7";
         label7.Size = new Size(163, 20);
         label7.TabIndex = 9;
@@ -144,7 +148,7 @@ partial class TaskManagementForm
         // txtDescription
         // 
         txtDescription.Enabled = false;
-        txtDescription.Location = new Point(12, 104);
+        txtDescription.Location = new Point(12, 157);
         txtDescription.Multiline = true;
         txtDescription.Name = "txtDescription";
         txtDescription.ScrollBars = ScrollBars.Vertical;
@@ -154,7 +158,7 @@ partial class TaskManagementForm
         // dtpDueDate
         // 
         dtpDueDate.Enabled = false;
-        dtpDueDate.Location = new Point(516, 43);
+        dtpDueDate.Location = new Point(180, 79);
         dtpDueDate.Name = "dtpDueDate";
         dtpDueDate.Size = new Size(253, 27);
         dtpDueDate.TabIndex = 3;
@@ -201,7 +205,7 @@ partial class TaskManagementForm
         tabControl1.Controls.Add(tabQueue);
         tabControl1.Controls.Add(tabTree);
         tabControl1.Dock = DockStyle.Bottom;
-        tabControl1.Location = new Point(0, 212);
+        tabControl1.Location = new Point(0, 265);
         tabControl1.Name = "tabControl1";
         tabControl1.SelectedIndex = 0;
         tabControl1.Size = new Size(912, 431);
@@ -308,10 +312,10 @@ partial class TaskManagementForm
         // 
         tabQueue.Controls.Add(btnProcessTask);
         tabQueue.Controls.Add(listTaskUrgent);
-        tabQueue.Location = new Point(4, 29);
+        tabQueue.Location = new Point(4, 24);
         tabQueue.Name = "tabQueue";
         tabQueue.Padding = new Padding(3);
-        tabQueue.Size = new Size(904, 398);
+        tabQueue.Size = new Size(904, 403);
         tabQueue.TabIndex = 2;
         tabQueue.Text = "Queue";
         tabQueue.UseVisualStyleBackColor = true;
@@ -339,6 +343,7 @@ partial class TaskManagementForm
         // 
         // tabTree
         // 
+        tabTree.Controls.Add(tvCategory);
         tabTree.Location = new Point(4, 24);
         tabTree.Name = "tabTree";
         tabTree.Padding = new Padding(3);
@@ -346,6 +351,14 @@ partial class TaskManagementForm
         tabTree.TabIndex = 3;
         tabTree.Text = "Tree";
         tabTree.UseVisualStyleBackColor = true;
+        // 
+        // tvCategory
+        // 
+        tvCategory.Dock = DockStyle.Fill;
+        tvCategory.Location = new Point(3, 3);
+        tvCategory.Name = "tvCategory";
+        tvCategory.Size = new Size(898, 397);
+        tvCategory.TabIndex = 0;
         // 
         // cbbCategory
         // 
@@ -356,6 +369,7 @@ partial class TaskManagementForm
         cbbCategory.Name = "cbbCategory";
         cbbCategory.Size = new Size(239, 28);
         cbbCategory.TabIndex = 2;
+        cbbCategory.SelectedIndexChanged += cbbCategory_SelectedIndexChanged;
         // 
         // rdbNormal
         // 
@@ -384,7 +398,7 @@ partial class TaskManagementForm
         // btnSave
         // 
         btnSave.Enabled = false;
-        btnSave.Location = new Point(178, 178);
+        btnSave.Location = new Point(178, 231);
         btnSave.Name = "btnSave";
         btnSave.Size = new Size(75, 28);
         btnSave.TabIndex = 7;
@@ -441,7 +455,7 @@ partial class TaskManagementForm
         // btnUpdate
         // 
         btnUpdate.Enabled = false;
-        btnUpdate.Location = new Point(95, 178);
+        btnUpdate.Location = new Point(95, 231);
         btnUpdate.Name = "btnUpdate";
         btnUpdate.Size = new Size(75, 28);
         btnUpdate.TabIndex = 8;
@@ -451,7 +465,7 @@ partial class TaskManagementForm
         // 
         // btnNew
         // 
-        btnNew.Location = new Point(12, 178);
+        btnNew.Location = new Point(12, 231);
         btnNew.Name = "btnNew";
         btnNew.Size = new Size(75, 28);
         btnNew.TabIndex = 0;
@@ -461,7 +475,7 @@ partial class TaskManagementForm
         // 
         // btnDelete
         // 
-        btnDelete.Location = new Point(261, 178);
+        btnDelete.Location = new Point(261, 231);
         btnDelete.Name = "btnDelete";
         btnDelete.Size = new Size(75, 28);
         btnDelete.TabIndex = 9;
@@ -469,11 +483,33 @@ partial class TaskManagementForm
         btnDelete.UseVisualStyleBackColor = true;
         btnDelete.Click += btnDelete_Click;
         // 
+        // cbbSubCategories
+        // 
+        cbbSubCategories.DropDownStyle = ComboBoxStyle.DropDownList;
+        cbbSubCategories.Enabled = false;
+        cbbSubCategories.FormattingEnabled = true;
+        cbbSubCategories.Location = new Point(473, 45);
+        cbbSubCategories.Name = "cbbSubCategories";
+        cbbSubCategories.Size = new Size(239, 28);
+        cbbSubCategories.TabIndex = 11;
+        // 
+        // label4
+        // 
+        label4.AutoSize = true;
+        label4.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+        label4.Location = new Point(356, 48);
+        label4.Name = "label4";
+        label4.Size = new Size(111, 20);
+        label4.TabIndex = 12;
+        label4.Text = "Sub-Categoria:";
+        // 
         // TaskManagementForm
         // 
         AutoScaleDimensions = new SizeF(8F, 20F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(912, 643);
+        ClientSize = new Size(912, 696);
+        Controls.Add(cbbSubCategories);
+        Controls.Add(label4);
         Controls.Add(btnDelete);
         Controls.Add(btnNew);
         Controls.Add(btnUpdate);
@@ -505,6 +541,7 @@ partial class TaskManagementForm
         tabStack.ResumeLayout(false);
         tabStack.PerformLayout();
         tabQueue.ResumeLayout(false);
+        tabTree.ResumeLayout(false);
         groupBox1.ResumeLayout(false);
         groupBox1.PerformLayout();
         groupBox2.ResumeLayout(false);
@@ -551,4 +588,7 @@ partial class TaskManagementForm
     private ListView listTaskUrgent;
     private Button button1;
     private Button btnProcessTask;
+    private TreeView tvCategory;
+    private ComboBox cbbSubCategories;
+    private Label label4;
 }

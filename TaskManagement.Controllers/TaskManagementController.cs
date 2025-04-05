@@ -159,11 +159,6 @@ public class TaskManagementController
 
         _taskList.Add(taskItem);
         _taskStack.Push(ActionOnTask.Create, taskItem.Clone);
-
-        //if (taskItem.PriorityLevel == PriorityLevel.Urgent)
-        //{
-        //    _taskQueue.Enqueue(taskItem.Clone);
-        //}
     }
 
     public void UpdateTask(TaskItemUpdateView updateView)
@@ -196,6 +191,7 @@ public class TaskManagementController
         {
             throw new ArgumentNullException();
         }
+
         TaskItem? taskToRemove = _taskList.GetTask(removeView.Id);
         if (taskToRemove is null)
         {
@@ -215,19 +211,21 @@ public class TaskManagementController
         if (_taskStack.IsLast)
         {
             taskItemBefore = _taskStack.Peek;
-            _taskList.Add(taskItemBefore);
         }
         else
         {
             taskItemBefore = _taskStack.Undo();
-            if (_taskList.TasksByPriorityAndDueDate.Count > 0)
-            {
-                _taskList.RemoveAtId(taskItemBefore.Id);
-            }
-            else
-            {
-                _taskList.Add(taskItemBefore);
-            }
+        }
+
+        TaskItem? taskItem = _taskList.GetTask(taskItemBefore.Id);
+        if (taskItem is not null)
+        {
+            _taskList.Remove(taskItem);
+            _taskList.Update(_taskStack.Peek);
+        }
+        else
+        {
+            _taskList.AddFromActions(_taskStack.Peek);
         }
     }
 
@@ -239,7 +237,14 @@ public class TaskManagementController
         }
 
         TaskItem taskItemAfter = _taskStack.Redo();
-        _taskList.AddRedo(taskItemAfter);
+
+        TaskItem? taskItem = _taskList.GetTask(taskItemAfter.Id);
+        if (taskItem is not null)
+        {
+            _taskList.Remove(taskItem);
+        }
+
+        _taskList.AddFromActions(taskItemAfter);
     }
 
     public void MarkTaskUrgent(UpdatePriorityLevel updateLavelStateView)
@@ -281,4 +286,5 @@ public class TaskManagementController
     {
         return _taskQueue.Any();
     }
+
 }
