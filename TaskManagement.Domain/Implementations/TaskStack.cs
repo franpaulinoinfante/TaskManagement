@@ -18,6 +18,14 @@ public class TaskStack
 
     public IReadOnlyList<(ActionOnTask, TaskItem)> TaskActionsRedo => _redoTasks.ToList();
 
+    public bool CanDoUndo => _historyTasks.Count >= 1;
+
+    public bool CanDoRedo => _historyTasks.Count > 0;
+
+    public bool IsLast => _historyTasks.Count == 1;
+
+    public TaskItem Peek => _historyTasks.Peek().Item2.Clone;
+
     public void Push(ActionOnTask action, TaskItem taskItem)
     {
         Debug.Assert(taskItem != null);
@@ -28,26 +36,21 @@ public class TaskStack
 
     public TaskItem Undo()
     {
-        if (CanDoUndo())
+        if (CanDoUndo)
         {
-
             _redoTasks.Push(_historyTasks.Pop());
         }
 
         return _historyTasks.Peek().Item2.Clone;
     }
 
-    public bool CanDoUndo() => _historyTasks.Count > 1;
-
     public TaskItem Redo()
     {
-        if (CanDoRedo())
+        if (CanDoRedo)
         {
             _historyTasks.Push(_redoTasks.Pop());
         }
 
         return _historyTasks.Peek().Item2.Clone;
     }
-
-    public bool CanDoRedo() => _historyTasks.Count > 0;
 }

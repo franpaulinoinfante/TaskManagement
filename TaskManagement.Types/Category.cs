@@ -1,9 +1,12 @@
-﻿namespace TaskManagement.Types;
+﻿using System.ComponentModel;
+
+namespace TaskManagement.Types;
 
 public enum Category
 {
     None,
     Personal,
+    [Description("Personal Development")]
     Trabajo,
     Estudios,
     Hogar,

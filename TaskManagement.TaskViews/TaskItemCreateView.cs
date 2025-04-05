@@ -1,10 +1,9 @@
 ﻿using TaskManagement.Types;
 
-namespace TaskManagement.TaskViews.TaskListViews;
-
-public class TaskItemUpdateView
+namespace TaskManagement.TaskViews;
+public class TaskItemCreateView
 {
-    public required int Id { get; set; }
+    public int Id { get; set; } = default;
     public required string Title { get; set; }
     public required string Description { get; set; }
     public required TaskStates TaskStates { get; set; }

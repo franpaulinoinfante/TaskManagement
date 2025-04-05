@@ -1,9 +1,6 @@
 ﻿using TaskManagement.Domain;
 using TaskManagement.Domain.Implementations;
 using TaskManagement.TaskViews;
-using TaskManagement.TaskViews.TaskListViews;
-using TaskManagement.TaskViews.TaskQueueViews;
-using TaskManagement.TaskViews.TaskStackViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
@@ -31,31 +28,6 @@ public class TaskManagementController
         {
             AddTask(task);
         }
-    }
-
-    public TaskItemListView GetTaskItemById(int id)
-    {
-        if (id <= 0)
-        {
-            throw new ArgumentNullException();
-        }
-
-        TaskItem? taskItem = _taskList.GetTask(id);
-        if (taskItem is null)
-        {
-            throw new InvalidOperationException("Tarea no encontrada");
-        }
-
-        return new TaskItemListView()
-        {
-            Id = taskItem.Id,
-            Title = taskItem.Title,
-            Description = taskItem.Description,
-            PriorityLevel = taskItem.PriorityLevel,
-            TaskStates = taskItem.TaskStates,
-            Category = taskItem.Category,
-            DueDate = taskItem.DueDate
-        };
     }
 
     public IReadOnlyList<TaskItemListView> TaskItemListViews
@@ -105,7 +77,7 @@ public class TaskManagementController
         get
         {
             List<TaskUrgentsView> taskUrgents = new List<TaskUrgentsView>();
-            foreach (var taskUrgent in _taskQueue.TaskUrgents)
+            foreach (TaskItem taskUrgent in _taskQueue.TaskUrgents)
             {
                 taskUrgents.Add(new TaskUrgentsView
                 {
@@ -141,6 +113,31 @@ public class TaskManagementController
 
             return taskActionsRedoView;
         }
+    }
+
+    public TaskItemListView GetTaskItemById(int id)
+    {
+        if (id <= 0)
+        {
+            throw new ArgumentNullException();
+        }
+
+        TaskItem? taskItem = _taskList.GetTask(id);
+        if (taskItem is null)
+        {
+            throw new InvalidOperationException("Tarea no encontrada");
+        }
+
+        return new TaskItemListView()
+        {
+            Id = taskItem.Id,
+            Title = taskItem.Title,
+            Description = taskItem.Description,
+            PriorityLevel = taskItem.PriorityLevel,
+            TaskStates = taskItem.TaskStates,
+            Category = taskItem.Category,
+            DueDate = taskItem.DueDate
+        };
     }
 
     public void AddTask(TaskItemCreateView createView)
@@ -191,11 +188,6 @@ public class TaskManagementController
 
         _taskStack.Push(ActionOnTask.Update, taskItemToUpdate.Clone);
         _taskList.Update(taskItemToUpdate);
-
-        //if (taskItemToUpdate.PriorityLevel != PriorityLevel.Urgent)
-        //{
-        //    _taskQueue.Dequeue(taskItemToUpdate);
-        //}
     }
 
     public void DeleteTask(TaskItemRemoveView removeView)
@@ -204,40 +196,44 @@ public class TaskManagementController
         {
             throw new ArgumentNullException();
         }
-
         TaskItem? taskToRemove = _taskList.GetTask(removeView.Id);
         if (taskToRemove is null)
         {
             throw new InvalidOperationException("Tarea para eliminar no encontrada");
         }
 
+        taskToRemove.MarkAsDeleted();
         _taskStack.Push(ActionOnTask.Remove, taskToRemove.Clone);
         _taskList.Remove(taskToRemove);
     }
 
     public void Undo()
     {
-        if (!_taskStack.CanDoUndo())
-        {
-            throw new InvalidOperationException("No se puede deshacer la primera versión");
-        }
-
         // preguntar al profesor si cuando realizo el undo o el redo, se actualiza la lista o solo se presentas las acciones en el historial stack????
 
-        TaskItem taskItemBefore = _taskStack.Undo();
-        if (_taskList.TasksByPriorityAndDueDate.Count > 0)
+        TaskItem taskItemBefore;
+        if (_taskStack.IsLast)
         {
-            _taskList.RemoveAtId(taskItemBefore.Id);
+            taskItemBefore = _taskStack.Peek;
+            _taskList.Add(taskItemBefore);
         }
         else
         {
-            _taskList.Add(taskItemBefore);
+            taskItemBefore = _taskStack.Undo();
+            if (_taskList.TasksByPriorityAndDueDate.Count > 0)
+            {
+                _taskList.RemoveAtId(taskItemBefore.Id);
+            }
+            else
+            {
+                _taskList.Add(taskItemBefore);
+            }
         }
     }
 
     public void Redo()
     {
-        if (!_taskStack.CanDoRedo())
+        if (!_taskStack.CanDoRedo)
         {
             throw new InvalidOperationException("No existen acciones para rehacer");
         }
@@ -259,7 +255,7 @@ public class TaskManagementController
             throw new InvalidOperationException("Tarea no encontrada");
         }
 
-        taskItem.PriorityLevel = updateLavelStateView.PriorityLevel;
+        taskItem.MarkPriorityAsUrgent();
 
         _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
         _taskList.Update(taskItem);
@@ -267,44 +263,6 @@ public class TaskManagementController
     }
 
     public bool AnyTask() => _taskList.TasksByPriorityAndDueDate.Any();
-
-    public void UpdateState(UpdateTaskStatesView updateTaskStateView)
-    {
-        if (updateTaskStateView == null || updateTaskStateView.Id <= 0)
-        {
-            throw new ArgumentNullException();
-        }
-
-        TaskItem? taskItem = _taskList.GetTask(updateTaskStateView.Id);
-        if (taskItem == null)
-        {
-            throw new InvalidOperationException("Tarea no encontrada");
-        }
-
-        taskItem.TaskStates = updateTaskStateView.TaskStates;
-        _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
-        _taskList.Update(taskItem);
-    }
-
-    public void MarkTaskNormal(UpdatePriorityLevel updateLavelStateView)
-    {
-        if (updateLavelStateView == null || updateLavelStateView.PriorityLevel != PriorityLevel.Normal || updateLavelStateView.Id <= 0)
-        {
-            throw new ArgumentNullException();
-        }
-
-        TaskItem? taskItem = _taskList.GetTask(updateLavelStateView.Id);
-        if (taskItem == null)
-        {
-            throw new InvalidOperationException("Tarea no encontrada");
-        }
-
-        taskItem.PriorityLevel = updateLavelStateView.PriorityLevel;
-
-        _taskStack.Push(ActionOnTask.Update, taskItem.Clone);
-        _taskList.Update(taskItem);
-        _taskQueue.Enqueue(taskItem);
-    }
 
     public void ProcessUrgentTask()
     {
@@ -314,7 +272,7 @@ public class TaskManagementController
         }
 
         TaskItem taskItem = _taskQueue.Dequeue();
-        taskItem.TaskStates = TaskStates.Done;
+        taskItem.MarkAsDone();
         _taskStack.Push(ActionOnTask.Update, taskItem);
         _taskList.RemoveAtId(taskItem.Id);
     }

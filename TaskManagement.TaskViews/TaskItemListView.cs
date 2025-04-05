@@ -1,8 +1,8 @@
 ﻿using TaskManagement.Types;
 
-namespace TaskManagement.TaskViews.TaskQueueViews;
+namespace TaskManagement.TaskViews;
 
-public class TaskUrgentsView
+public class TaskItemListView
 {
     public int Id { get; set; }
     public string Title { get; set; } = string.Empty;

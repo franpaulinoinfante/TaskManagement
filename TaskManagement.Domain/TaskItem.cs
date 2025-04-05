@@ -42,4 +42,22 @@ public class TaskItem
         CreatedAt = this.CreatedAt,
         DueDate = this.DueDate,
     };
+
+    public void MarkAsDone()
+    {
+        TaskStates = TaskStates.Done;
+    }
+
+    public void MarkAsDeleted()
+    {
+        TaskStates = TaskStates.Deleted;
+    }
+
+    public void MarkPriorityAsUrgent()
+    {
+        if (PriorityLevel == PriorityLevel.Normal)
+        {
+            PriorityLevel = PriorityLevel.Urgent;
+        }
+    }
 }

@@ -70,6 +70,36 @@
     }
 
 @enduml
+enum {
+    +Personal
+    +Personal Development
+    +Goals and Planning
+    +Self-Learning
+    +Journaling and Reflections
+    +Habits and Routines
+    +WORK
+    +Meetings
+    +Reports
+    +Software Development
+    +Data Analysis
+    +Presentations
+    +STUDIES
+    +TasksAndProjects
+    +Exams
+    +PendingReadings
+    +ClassesAndCourses
+    +HOME
+    +Cleaning
+    +HouseholdShopping
+    +Maintenance
+    +Utility Payments
+    +HEALTH_AND_WELLNESS
+    +MedicalAppointments
+    +Exercise
+    +Nutrition
+    +RestSeeMore
+}
+
 
 📂Tasks
 ├── 📂Work

@@ -1,5 +1,5 @@
-﻿using TaskManagement.TaskViews.TaskListViews;
-using TaskManagement.Types;
+﻿using TaskManagement.Types;
+using TaskManagement.TaskViews;
 
 namespace TaskManagement.Controllers;
 internal class SeedTasks

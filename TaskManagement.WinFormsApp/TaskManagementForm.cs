@@ -1,9 +1,6 @@
 ﻿using System.ComponentModel;
 using TaskManagement.Controllers;
 using TaskManagement.TaskViews;
-using TaskManagement.TaskViews.TaskListViews;
-using TaskManagement.TaskViews.TaskStackViews;
-using TaskManagement.TaskViews.TaskQueueViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.WinFormsApp;
@@ -165,7 +162,7 @@ public partial class TaskManagementForm : Form
     {
         listTaksItems.View = View.Details;
         listTaksItems.Columns.Add("Id", 50);
-        listTaksItems.Columns.Add("Title", 310);
+        listTaksItems.Columns.Add("Título", 310);
         listTaksItems.Columns.Add("Priodidad", 85);
         listTaksItems.Columns.Add("Estado", 100);
         listTaksItems.Columns.Add("Categoria", 175);
@@ -173,17 +170,17 @@ public partial class TaskManagementForm : Form
 
         listTaskActionsHistory.View = View.Details;
         listTaskActionsHistory.Columns.Add("Id", 50);
-        listTaskActionsHistory.Columns.Add("Title", 150);
+        listTaskActionsHistory.Columns.Add("Título", 150);
         listTaskActionsHistory.Columns.Add("Acción", 100);
 
         listTaskActionsRedos.View = View.Details;
         listTaskActionsRedos.Columns.Add("Id", 50);
-        listTaskActionsRedos.Columns.Add("Title", 150);
+        listTaskActionsRedos.Columns.Add("Título", 150);
         listTaskActionsRedos.Columns.Add("Acción", 100);
 
         listTaskUrgent.View = View.Details;
         listTaskUrgent.Columns.Add("Id", 50);
-        listTaskUrgent.Columns.Add("Title", 310);
+        listTaskUrgent.Columns.Add("Título", 310);
         listTaskUrgent.Columns.Add("Priodidad", 85);
         listTaskUrgent.Columns.Add("Estado", 100);
         listTaskUrgent.Columns.Add("Categoria", 175);
@@ -252,7 +249,6 @@ public partial class TaskManagementForm : Form
                         PriorityLevel = PriorityLevel,
                         DueDate = DueDate
                     });
-
 
                     listTaksItems.FullRowSelect = true;
                     break;

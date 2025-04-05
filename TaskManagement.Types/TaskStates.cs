@@ -4,7 +4,8 @@ public enum TaskStates
 {
     ToDo,
     InProgress,
-    Done
+    Done,
+    Deleted
 }
 
 public static class TaskStateExtension
@@ -13,7 +14,8 @@ public static class TaskStateExtension
     {
         "Pendiente",
         "En Progreso",
-        "Realizada"
+        "Realizada",
+        "Deleted"
     };
 
     public static string GetMesage(this TaskStates taskState)

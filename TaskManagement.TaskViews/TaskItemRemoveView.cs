@@ -1,4 +1,4 @@
-﻿namespace TaskManagement.TaskViews.TaskListViews;
+﻿namespace TaskManagement.TaskViews;
 
 public class TaskItemRemoveView
 {

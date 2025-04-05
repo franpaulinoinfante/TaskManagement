@@ -1,6 +1,6 @@
 ﻿using TaskManagement.Types;
 
-namespace TaskManagement.TaskViews.TaskStackViews;
+namespace TaskManagement.TaskViews;
 
 public class TaskActionsRedoView
 {
