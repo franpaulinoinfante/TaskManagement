@@ -1,6 +1,8 @@
 # Task Management
 Práctica Final: Estructuras de Datos en el Lenguaje de Programación de Tu Preferencia
 
+## Indice
+
 ## Objetivo:
 Desarrollar una aplicación que implemente y utilice diferentes estructuras de datos (listas, pilas, colas y árboles) para resolver un problema específico. Los estudiantes podrán elegir el lenguaje de programación con el que se sientan más cómodos.
 
@@ -96,7 +98,15 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
 ### Proccess Task
 ![image](https://github.com/user-attachments/assets/6d0c6736-d059-405a-b345-e84983ecb2b4)
 
+
 ### Interfaz de Usuario
+![image](https://github.com/user-attachments/assets/1d850b46-d772-4fee-9573-1c6bc38d1921)
+
+![image](https://github.com/user-attachments/assets/005e236c-767e-4074-b29b-75ffbe3cebf1)
+
+![image](https://github.com/user-attachments/assets/4f77f364-f23e-4ba7-b05a-0dc553ae6d63)
+
+![image](https://github.com/user-attachments/assets/8e7c469c-eebb-4ad5-aa64-eb74025ea31b)
 
 ### Arquitectura
 
@@ -211,3 +221,6 @@ La clase CategoryNodo es una implementación clave para organizar tareas en un �
 - Flexibilidad: Soporta la asignación de tareas a cualquier categoría dentro del árbol.
 - Recursividad: Utiliza un enfoque recursivo para buscar categorías y asignar tareas, lo que simplifica la navegación en estructuras complejas.  
 Esta implementación es adecuada para sistemas de gestión de tareas donde las categorías y subcategorías son esenciales para organizar la información de manera clara y eficiente.
+
+### Instalador
+https://1drv.ms/f/s!Ao2-T3T2v5nLhOpgAuki5JqkpmIpHQ?e=WXsIZM
