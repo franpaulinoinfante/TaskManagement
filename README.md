@@ -59,9 +59,9 @@ El problema consiste en desarrollar una aplicación de gestión de tareas que pe
 5. **Conclusión**
 Cada estructura de datos fue seleccionada e implementada en función de las necesidades específicas del problema:
 
-**Listas** para manejar colecciones de tareas con operaciones básicas y ordenamiento.\n
-**Pilas** para gestionar el historial de acciones con deshacer/rehacer.\n
-**Colas** para procesar tareas urgentes en orden FIFO.\n
+**Listas** para manejar colecciones de tareas con operaciones básicas y ordenamiento. <\ br>
+**Pilas** para gestionar el historial de acciones con deshacer/rehacer.<\ br>
+**Colas** para procesar tareas urgentes en orden FIFO.<\ br>
 **Árboles** para organizar tareas jerárquicamente en categorías y subcategorías.
 
 Estas implementaciones son correctas porque aprovechan las fortalezas de cada estructura de datos, garantizando eficiencia y claridad en la gestión de las tareas.
