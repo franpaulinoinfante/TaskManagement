@@ -96,7 +96,15 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
 ### Proccess Task
 ![image](https://github.com/user-attachments/assets/6d0c6736-d059-405a-b345-e84983ecb2b4)
 
+
 ### Interfaz de Usuario
+![image](https://github.com/user-attachments/assets/1d850b46-d772-4fee-9573-1c6bc38d1921)
+
+![image](https://github.com/user-attachments/assets/005e236c-767e-4074-b29b-75ffbe3cebf1)
+
+![image](https://github.com/user-attachments/assets/4f77f364-f23e-4ba7-b05a-0dc553ae6d63)
+
+![image](https://github.com/user-attachments/assets/8e7c469c-eebb-4ad5-aa64-eb74025ea31b)
 
 ### Arquitectura
 
@@ -108,6 +116,7 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
    - .NET 9 Runtime instalado (si no está incluido en el instalador).
 2. Pasos de instalación:
    -	Descargar el instalador: TaskManagementApp.msi o TaskManagementApp.exe
+      - https://1drv.ms/f/s!Ao2-T3T2v5nLhOpgAuki5JqkpmIpHQ?e=WXsIZM	   
 2.	Ejecutar el instalador:
    - Haz doble clic en el archivo setup.msi para iniciar el asistente de instalación.
 3.	Seguir las instrucciones del asistente:
