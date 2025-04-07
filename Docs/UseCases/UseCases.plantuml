@@ -20,10 +20,6 @@ usecase "Mark Task Normal" as UC302
 usecase "Display Urgent Tasks" as UC303
 usecase "Process Task" as UC304
 
-usecase "Mark Task ToDo" as UC402
-usecase "Mark Task In Progress" as UC403
-usecase "Mark Task Done" as UC404
-
 usecase "Display Task In Category Tree" as UC501
 
 User --> UC101
@@ -49,8 +45,12 @@ User --> UC203
 
 User --> UC301
     UC301 ..> UC303 : <<include>>
+    UC301 ..> UC501 : <<include>>
 User --> UC302
     UC302 ..> UC303 : <<include>>
+    UC302 ..> UC501 : <<include>>
 User --> UC304
     UC304 ..> UC303 : <<include>>
+    
+User --> UC501
 @enduml
