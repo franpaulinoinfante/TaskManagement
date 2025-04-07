@@ -100,6 +100,8 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
 
 ### Arquitectura
 
+![image](https://github.com/user-attachments/assets/10caeb27-919f-40f7-aeac-caf2b78f4cd5)
+
 ### Guía de instalación para los usuarios:
 1. Requisitos previos:
    - Sistema operativo Windows.
