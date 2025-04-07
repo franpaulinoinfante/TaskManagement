@@ -38,19 +38,33 @@ El problema consiste en desarrollar una aplicación de gestión de tareas que pe
 ### Explicación de Cada Estructura de Datos Utilizada y Por Qué Se Eligió
 1. **Listas**:
    - **Uso**: Almacenar y gestionar las tareas pendientes.
-   - **Razón**: Las listas son ideales para manejar colecciones de elementos ordenados. Permiten agregar, eliminar y buscar tareas de manera eficiente, además de ordenar las tareas según criterios específicos.
+   - **Implementación:** Se utilizó una lista para almacenar las tareas pendientes. Cada tarea se representó como un objeto.
+   - **Razón**: Las listas son una estructura de datos flexible y eficiente para manejar colecciones de elementos. Permiten realizar operaciones básicas como agregar, eliminar y buscar elementos con facilidad. Además, su capacidad para ordenar elementos según criterios específicos las hace ideales para gestionar tareas pendientes.
 
 2. **Pilas**:
    - **Uso**: Implementar el historial de acciones (deshacer/rehacer).
-   - **Razón**: Las pilas son adecuadas para manejar operaciones en orden LIFO (Last In, First Out). Esto permite deshacer la última acción realizada y rehacerla si es necesario.
+   - **Implementación:** Se utilizó una pila para implementar el historial de acciones realizadas sobre las tareas. Cada acción (como agregar, eliminar o modificar una tarea) se almacena como un objeto en la pila.
+   - **Razón**: Las pilas son adecuadas para manejar operaciones en orden LIFO (Last In, First Out). Esto es perfecto para un historial de acciones, ya que la última acción realizada es la primera que se deshace. Además, el uso de una segunda pila para rehacer acciones asegura que el historial se mantenga consistente.
 
 3. **Colas**:
    - **Uso**: Gestionar las tareas urgentes.
-   - **Razón**: Las colas son perfectas para procesar elementos en el orden en que llegan (FIFO). Esto asegura que las tareas urgentes se atiendan en el orden correcto.
+   - **Implementación:** Se implementó una cola para gestionar las tareas urgentes. Cada tarea urgente se agrega al final de la cola y se procesa desde el frente. 
+   - **Razón**: Las colas son perfectas para manejar elementos en orden FIFO (First In, First Out). Esto asegura que las tareas urgentes se procesen en el mismo orden en que fueron agregadas, lo cual es crucial para garantizar que ninguna tarea urgente sea ignorada o procesada fuera de turno.
 
 4. **Árboles**:
    - **Uso**: Organizar las tareas en categorías y subcategorías.
-   - **Razón**: Los árboles permiten representar relaciones jerárquicas entre elementos. Esto facilita la organización de las tareas en niveles, como categorías principales y subcategorías.
+   - **Implementación:** Se utilizó un árbol para organizar las tareas en categorías y subcategorías. Cada nodo del árbol representa una categoría o subcategoría, y las tareas se almacenan como hojas o listas asociadas a los nodos. Las operaciones realizadas incluyen:
+   - **Razón**: Los árboles son ideales para representar relaciones jerárquicas. Permiten organizar las tareas en niveles (categorías y subcategorías) y facilitan la navegación y visualización de las mismas. Además, su estructura flexible permite agregar nuevas categorías o subcategorías sin afectar el resto del árbol.
+
+5. **Conclusión**
+Cada estructura de datos fue seleccionada e implementada en función de las necesidades específicas del problema:
+
+**Listas** para manejar colecciones de tareas con operaciones básicas y ordenamiento.
+**Pilas** para gestionar el historial de acciones con deshacer/rehacer.
+**Colas** para procesar tareas urgentes en orden FIFO.
+**Árboles** para organizar tareas jerárquicamente en categorías y subcategorías.
+
+Estas implementaciones son correctas porque aprovechan las fortalezas de cada estructura de datos, garantizando eficiencia y claridad en la gestión de las tareas.
 
 ## Domain Model
 ![image](https://github.com/user-attachments/assets/2e306aa5-0bc0-44fe-b04d-451757e457f5)
