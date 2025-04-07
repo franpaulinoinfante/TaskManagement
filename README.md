@@ -25,30 +25,32 @@ Desarrolla una aplicación de gestión de tareas para una empresa. La aplicació
 - Permitir organizar las tareas en categorías y subcategorías utilizando una estructura de árbol.
 - Mostrar las tareas organizadas jerárquicamente.
 
-## Entregables:
-1. Código Fuente: El código fuente completo de la aplicación, incluyendo comentarios y documentación que explique cómo funciona cada parte.
-2. Documentación: Un documento explicativo que incluya:
-- Descripción del problema y cómo fue resuelto.
-- Explicación de cada estructura de datos utilizada y por qué se eligió.
-- Instrucciones para compilar y ejecutar el programa.
-3. Demostración: Una breve presentación (5-10 minutos) mostrando el funcionamiento de la aplicación.
-  
-## Criterios de Evaluación:
-1. Funcionalidad: La aplicación cumple con todos los requerimientos especificados.
-2. Eficiencia: Uso adecuado y eficiente de las estructuras de datos.
-3. Código: Calidad del código, incluyendo legibilidad, comentarios y buenas prácticas.
-4. Documentación: Claridad y exhaustividad de la documentación proporcionada.
-5. Presentación: Calidad de la demostración y capacidad para explicar el funcionamiento de la aplicación.
+## Documentación:
 
-## Notas Adicionales:
-- Los estudiantes son libres de usar cualquier lenguaje de programación que prefieran.
-- Pueden trabajar en grupos de hasta 3 personas.
-- Se recomienda utilizar bibliotecas o frameworks que faciliten la implementación de las estructuras de datos si el lenguaje de programación lo permite.
-## Instrucciones Adicionales:
-- Asegúrate de manejar adecuadamente los errores y excepciones en tu código.
-- La interfaz de usuario puede ser de consola, gráfica o web, según la preferencia de los estudiantes.
-- Considera la posibilidad de utilizar herramientas de control de versiones (como Git) para gestionar el desarrollo del proyecto.
-¡Buena suerte y feliz codificación!
+### Descripción del Problema y Cómo Fue Resuelto
+El problema consiste en desarrollar una aplicación de gestión de tareas que permita a los usuarios organizar, priorizar y realizar un seguimiento de sus tareas. Para resolver este problema, se implementaron diferentes estructuras de datos que permiten manejar las tareas de manera eficiente:
+
+- **Listas**: Se utilizaron para almacenar y gestionar las tareas pendientes. Cada tarea incluye atributos como título, descripción, prioridad y fecha de vencimiento. Las listas permiten ordenar las tareas según criterios específicos, como prioridad y fecha.
+- **Pilas**: Se implementó un historial de acciones utilizando una pila. Esto permite registrar las operaciones realizadas sobre las tareas (agregar, eliminar, modificar) y habilitar las funcionalidades de deshacer y rehacer.
+- **Colas**: Se utilizó una cola para gestionar las tareas urgentes. Las tareas se procesan en el orden en que fueron agregadas, siguiendo el principio FIFO (First In, First Out).
+- **Árboles**: Las tareas se organizaron jerárquicamente en un árbol, con categorías y subcategorías. Esto facilita la visualización y organización de las tareas según su contexto.
+
+### Explicación de Cada Estructura de Datos Utilizada y Por Qué Se Eligió
+1. **Listas**:
+   - **Uso**: Almacenar y gestionar las tareas pendientes.
+   - **Razón**: Las listas son ideales para manejar colecciones de elementos ordenados. Permiten agregar, eliminar y buscar tareas de manera eficiente, además de ordenar las tareas según criterios específicos.
+
+2. **Pilas**:
+   - **Uso**: Implementar el historial de acciones (deshacer/rehacer).
+   - **Razón**: Las pilas son adecuadas para manejar operaciones en orden LIFO (Last In, First Out). Esto permite deshacer la última acción realizada y rehacerla si es necesario.
+
+3. **Colas**:
+   - **Uso**: Gestionar las tareas urgentes.
+   - **Razón**: Las colas son perfectas para procesar elementos en el orden en que llegan (FIFO). Esto asegura que las tareas urgentes se atiendan en el orden correcto.
+
+4. **Árboles**:
+   - **Uso**: Organizar las tareas en categorías y subcategorías.
+   - **Razón**: Los árboles permiten representar relaciones jerárquicas entre elementos. Esto facilita la organización de las tareas en niveles, como categorías principales y subcategorías.
 
 ## Domain Model
 ![image](https://github.com/user-attachments/assets/2e306aa5-0bc0-44fe-b04d-451757e457f5)
