@@ -6,12 +6,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <Version />
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\TaskManagement.Controllers\TaskManagement.Controllers.csproj" />
     <ProjectReference Include="..\TaskManagement.TaskViews\TaskManagement.TaskViews.csproj" />
-    <ProjectReference Include="..\TaskManagement.Utils\TaskManagement.Utils.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using TaskManagement.Domain;
 using TaskManagement.Domain.Implementations;
 using TaskManagement.TaskViews;
+using TaskManagement.TaskViews.CategoryViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
@@ -17,18 +18,9 @@ public class TaskManagementController
         _taskStack = new();
         _taskQueue = new();
 
-        //LoadTreeView();
     }
 
-    private void LoadTreeView()
-    {
-
-        List<TaskItemCreateView> taskSeed = new SeedTasks().GetSeedTask();
-        foreach (TaskItemCreateView task in taskSeed)
-        {
-            AddTask(task);
-        }
-    }
+    public List<CategoryNodo> GetCategoryNodos => LoadCategoryTree.LoadCategoryNode(TaskItemListViews);
 
     public IReadOnlyList<TaskItemListView> TaskItemListViews
     {
@@ -258,6 +250,11 @@ public class TaskManagementController
         if (taskItem == null)
         {
             throw new InvalidOperationException("Tarea no encontrada");
+        }
+
+        if (taskItem.PriorityLevel == PriorityLevel.Urgent)
+        {
+            throw new InvalidOperationException("La tarea ya es urgente");
         }
 
         taskItem.MarkPriorityAsUrgent();

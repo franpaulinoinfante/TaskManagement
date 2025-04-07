@@ -7,13 +7,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Domain", "Ta
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Controllers", "TaskManagement.Controllers\TaskManagement.Controllers.csproj", "{8469BE0E-7769-4EDE-A4FD-D45CD3880613}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Utils", "TaskManagement.Utils\TaskManagement.Utils.csproj", "{344FA01A-7966-4110-BCDE-3B0AFDDE7250}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.TaskViews", "TaskManagement.TaskViews\TaskManagement.TaskViews.csproj", "{A5B06B13-7598-41E0-9BCC-30CA77DB49C5}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.Types", "TaskManagement.Types\TaskManagement.Types.csproj", "{4FACAEF6-6BD3-4001-87C1-B36F2F22FD57}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TaskManagement.WinFormsApp", "TaskManagement.WinFormsApp\TaskManagement.WinFormsApp.csproj", "{1410F29F-E78B-2BD5-87E5-EA03F9244148}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "TaskManagementApp", "TaskManagementApp\TaskManagementApp.vdproj", "{276589DE-403D-95C0-3431-BE6E893B44B9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,10 +29,6 @@ Global
 		{8469BE0E-7769-4EDE-A4FD-D45CD3880613}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8469BE0E-7769-4EDE-A4FD-D45CD3880613}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8469BE0E-7769-4EDE-A4FD-D45CD3880613}.Release|Any CPU.Build.0 = Release|Any CPU
-		{344FA01A-7966-4110-BCDE-3B0AFDDE7250}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{344FA01A-7966-4110-BCDE-3B0AFDDE7250}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{344FA01A-7966-4110-BCDE-3B0AFDDE7250}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{344FA01A-7966-4110-BCDE-3B0AFDDE7250}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5B06B13-7598-41E0-9BCC-30CA77DB49C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5B06B13-7598-41E0-9BCC-30CA77DB49C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5B06B13-7598-41E0-9BCC-30CA77DB49C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -45,6 +41,8 @@ Global
 		{1410F29F-E78B-2BD5-87E5-EA03F9244148}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1410F29F-E78B-2BD5-87E5-EA03F9244148}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1410F29F-E78B-2BD5-87E5-EA03F9244148}.Release|Any CPU.Build.0 = Release|Any CPU
+		{276589DE-403D-95C0-3431-BE6E893B44B9}.Debug|Any CPU.ActiveCfg = Debug
+		{276589DE-403D-95C0-3431-BE6E893B44B9}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

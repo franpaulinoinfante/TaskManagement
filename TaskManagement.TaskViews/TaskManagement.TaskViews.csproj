@@ -9,7 +9,6 @@
   <ItemGroup>
     <ProjectReference Include="..\TaskManagement.Domain\TaskManagement.Domain.csproj" />
     <ProjectReference Include="..\TaskManagement.Types\TaskManagement.Types.csproj" />
-    <ProjectReference Include="..\TaskManagement.Utils\TaskManagement.Utils.csproj" />
   </ItemGroup>
 
 </Project>
