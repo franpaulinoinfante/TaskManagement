@@ -1,8 +1,6 @@
 # Task Management
 Práctica Final: Estructuras de Datos en el Lenguaje de Programación de Tu Preferencia
 
-## Indice
-
 ## Objetivo:
 Desarrollar una aplicación que implemente y utilice diferentes estructuras de datos (listas, pilas, colas y árboles) para resolver un problema específico. Los estudiantes podrán elegir el lenguaje de programación con el que se sientan más cómodos.
 
