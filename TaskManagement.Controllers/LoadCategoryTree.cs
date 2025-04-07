@@ -3,6 +3,7 @@ using TaskManagement.TaskViews.CategoryViews;
 using TaskManagement.Types;
 
 namespace TaskManagement.Controllers;
+
 public class LoadCategoryTree
 {
     public static List<CategoryNodo> LoadCategoryNode(IReadOnlyList<TaskItemListView> tasks)

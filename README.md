@@ -56,7 +56,7 @@ El problema consiste en desarrollar una aplicación de gestión de tareas que pe
    - **Implementación:** Se utilizó un árbol para organizar las tareas en categorías y subcategorías. Cada nodo del árbol representa una categoría o subcategoría, y las tareas se almacenan como hojas o listas asociadas a los nodos. Las operaciones realizadas incluyen:
    - **Razón**: Los árboles son ideales para representar relaciones jerárquicas. Permiten organizar las tareas en niveles (categorías y subcategorías) y facilitan la navegación y visualización de las mismas. Además, su estructura flexible permite agregar nuevas categorías o subcategorías sin afectar el resto del árbol.
 
-5. **Conclusión**
+**Conclusión**  
 Cada estructura de datos fue seleccionada e implementada en función de las necesidades específicas del problema:
 
 **Listas** para manejar colecciones de tareas con operaciones básicas y ordenamiento.  
@@ -65,6 +65,7 @@ Cada estructura de datos fue seleccionada e implementada en función de las nece
 **Árboles** para organizar tareas jerárquicamente en categorías y subcategorías.
 
 Estas implementaciones son correctas porque aprovechan las fortalezas de cada estructura de datos, garantizando eficiencia y claridad en la gestión de las tareas.
+
 
 ## Domain Model
 ![image](https://github.com/user-attachments/assets/2e306aa5-0bc0-44fe-b04d-451757e457f5)
@@ -94,3 +95,117 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
 
 ### Proccess Task
 ![image](https://github.com/user-attachments/assets/6d0c6736-d059-405a-b345-e84983ecb2b4)
+
+### Interfaz de Usuario
+
+### Arquitectura
+
+### Guía de instalación para los usuarios:
+1. Requisitos previos:
+   - Sistema operativo Windows.
+   - .NET 9 Runtime instalado (si no está incluido en el instalador).
+2. Pasos de instalación:
+   -	Descargar el instalador: TaskManagementApp.msi o TaskManagementApp.exe
+2.	Ejecutar el instalador:
+   - Haz doble clic en el archivo setup.msi para iniciar el asistente de instalación.
+3.	Seguir las instrucciones del asistente:
+   - Haz clic en "Siguiente" en la pantalla de bienvenida.
+   - Selecciona la carpeta de destino donde deseas instalar la aplicación y haz clic en "Siguiente".
+   - Haz clic en "Instalar" para comenzar la instalación.
+4.	Finalizar la instalación:
+   - Una vez completada la instalación, haz clic en "Finalizar" para cerrar el asistente.
+5.	Ejecutar la aplicación:
+   - Ve al menú de inicio o al escritorio y haz clic en el acceso directo de la aplicación para ejecutarla.
+Siguiendo estos pasos, podrás crear un instalador para tu sistema y proporcionar una guía clara para que los usuarios puedan instalar y usar tu aplicación fácilmente.
+
+###  Resumen de los Principios Respetados en el Proyecto
+1. Modularidad: El proyecto se estructuró en módulos independientes, cada uno encargado de una funcionalidad específica (gestión de tareas, historial de acciones, tareas urgentes, organización jerárquica). Esto facilita el mantenimiento y la escalabilidad del sistema.
+2. Uso Adecuado de Estructuras de Datos
+   - Se seleccionaron estructuras de datos óptimas para cada caso de uso:
+      - Listas para tareas pendientes.
+      - Pilas para el historial de acciones.
+      - Colas para tareas urgentes.
+      - Arboles para la organización jerárquica.
+   - Esto asegura eficiencia y claridad en las operaciones realizadas.
+3. Principio de Responsabilidad Única (SRP)
+   - Cada componente del sistema tiene una única responsabilidad:
+      - La lista gestiona las tareas pendientes.
+      - La pila maneja el historial de acciones.
+      - La cola organiza las tareas urgentes.
+      - El árbol estructura las categorías y subcategorías.
+4. Reusabilidad: Las estructuras de datos y funciones implementadas son reutilizables en diferentes partes del proyecto, evitando duplicación de código.
+5. Eficiencia: Se priorizó el uso de algoritmos y estructuras de datos que optimizan el tiempo y el espacio, como el uso de pilas para deshacer/rehacer y colas para tareas urgentes.
+6. Claridad y Legibilidad del Código: El código fue escrito siguiendo buenas prácticas, con nombres descriptivos para variables y funciones, y comentarios que explican cada sección.
+7. Gestión de Errores: Se implementaron mecanismos para manejar errores y excepciones, asegurando que el sistema sea robusto y no falle ante entradas inesperadas.
+8. Escalabilidad: La estructura del proyecto permite agregar nuevas funcionalidades (como nuevas categorías o tipos de tareas) sin afectar el diseño existente.
+9. Principio de Abierto/Cerrado (OCP): El sistema está diseñado para ser extensible sin modificar el código base, por ejemplo, añadiendo nuevas categorías o funcionalidades.
+10. Facilidad de Uso: La interfaz gráfica fue diseñada para ser intuitiva, permitiendo a los usuarios interactuar fácilmente con las tareas y sus categorías.
+
+### Explicación de la Clase CategoryNode
+La clase CategoryNodo es una implementación que representa un nodo en un árbol jerárquico de categorías. Este diseño permite organizar tareas en categorías y subcategorías, facilitando la gestión y navegación de las mismas.
+- Propiedades
+   1. Category
+      - Tipo: Category
+      - Representa la categoría asociada al nodo actual. Es el identificador principal del nodo.
+   2. Subcategories
+      - Tipo: List<CategoryNodo>
+      - Contiene una lista de subcategorías (hijos) del nodo actual. Esto permite construir una estructura jerárquica de categorías.
+   3. Tasks
+      - Tipo: List<TaskItemListView>
+      - Almacena las tareas asociadas a la categoría representada por el nodo actual.
+- Constructor
+public CategoryNodo(Category category)
+{
+    Category = category;
+    Subcategories = new List<CategoryNodo>();
+    Tasks = new List<TaskItemListView>();
+}
+- Propósito: Inicializa un nodo con una categoría específica.
+- Acciones: Asigna la categoría al nodo e inicializa las listas de subcategorías (Subcategories) y tareas (Tasks) como vacías.
+- Métodos
+1. AddSubCategory
+public void AddSubcategory(CategoryNodo subcategory)
+{
+    Subcategories.Add(subcategory);
+}
+- Propósito: Agrega una subcategoría al nodo actual.
+- Uso: Permite construir la jerarquía del árbol añadiendo nodos hijos al nodo actual
+- Funcionamiento:
+   - Recibe un nodo (subcategory) como parámetro.
+   - Lo agrega a la lista de subcategorías (Subcategories).
+2. AddTaskToCategory
+public bool AddTaskToCategory(Category targetCategory, TaskItemListView task)
+{
+    if (Category == targetCategory)
+    {
+        Tasks.Add(task);
+        return true; 
+    }
+
+    foreach (var sub in Subcategories)
+    {
+        if (sub.AddTaskToCategory(targetCategory, task))
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+- Propósito: Agrega una tarea a una categoría específica dentro del árbol.
+- Parámetros:
+   - targetCategory: La categoría objetivo donde se desea agregar la tarea.
+   - task: La tarea que se desea agregar.
+- Funcionamiento: 
+   1. Comprueba si la categoría del nodo actual (Category) coincide con la categoría objetivo (targetCategory).
+      - Si coincide, agrega la tarea a la lista de tareas (Tasks) del nodo actual y retorna true.
+   2. Si no coincide, recorre recursivamente las subcategorías (Subcategories) llamando al mismo método en cada nodo hijo.
+      - Si alguna subcategoría agrega la tarea, retorna true.
+      - Si no se encuentra la categoría objetivo en el nodo actual ni en sus subcategorías, retorna false.
+**Ventaja**: Este método utiliza una búsqueda recursiva para localizar la categoría objetivo en cualquier nivel del árbol, lo que lo hace eficiente para estructuras jerárquicas.
+**Resumen**
+La clase CategoryNodo es una implementación clave para organizar tareas en un árbol jerárquico de categorías. Sus principales características son:
+- Jerarquía: Permite construir una estructura de árbol mediante la lista de subcategorías.
+- Flexibilidad: Soporta la asignación de tareas a cualquier categoría dentro del árbol.
+- Recursividad: Utiliza un enfoque recursivo para buscar categorías y asignar tareas, lo que simplifica la navegación en estructuras complejas.  
+Esta implementación es adecuada para sistemas de gestión de tareas donde las categorías y subcategorías son esenciales para organizar la información de manera clara y eficiente.

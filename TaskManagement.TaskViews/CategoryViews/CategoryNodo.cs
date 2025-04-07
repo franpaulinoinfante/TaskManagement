@@ -19,17 +19,12 @@ public class CategoryNodo
         Subcategories.Add(subcategory);
     }
 
-    public void AddTask(TaskItemListView task)
-    {
-        Tasks.Add(task);
-    }
-
     public bool AddTaskToCategory(Category targetCategory, TaskItemListView task)
     {
         if (Category == targetCategory)
         {
             Tasks.Add(task);
-            return true; // Tarea agregada
+            return true; 
         }
 
         foreach (var sub in Subcategories)
