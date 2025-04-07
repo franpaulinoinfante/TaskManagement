@@ -44,6 +44,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -68,6 +76,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
     }
@@ -156,15 +172,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:TaskManagementApp"
-        "ProductCode" = "8:{EFAF1AFA-1BA7-453B-AE3D-80908B37B8BB}"
-        "PackageCode" = "8:{3572AFF7-10F7-4843-8A0F-36DD6A4E33FA}"
+        "ProductCode" = "8:{6CB3CDC2-3740-46B1-A0B0-9D3580AAD5AB}"
+        "PackageCode" = "8:{DDFD03E1-6B7D-4F27-9C2F-8E2D845C07F2}"
         "UpgradeCode" = "8:{FC88C343-8B05-4F99-B40D-056EFC19BB3D}"
         "AspNetVersion" = "8:"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:2.0.1"
+        "ProductVersion" = "8:2.1.0"
         "Manufacturer" = "8:UAPA Projects"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -706,7 +722,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_9EFBA75708654968A3A433983C7AC48D"
             {
-            "SourcePath" = "8:..\\TaskManagement.WinFormsApp\\obj\\Debug\\net9.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\TaskManagement.WinFormsApp\\obj\\Release\\net9.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_979EC53F6FAA4E988602D5B6DBA793C7"

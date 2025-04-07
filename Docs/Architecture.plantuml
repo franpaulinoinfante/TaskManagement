@@ -1,4 +1,5 @@
 @startuml Architecture
+    skin rose
     title Architecture
 
 WinFormsApp --> Controllers
@@ -13,19 +14,19 @@ ViewModels --> Models
 
 Models --> Types
 
-class WinFormsApp{
+package WinFormsApp{
 }
 
-class ViewModels{
+package ViewModels{
 }
 
-class Controllers{
+package Controllers{
 }
 
-class Types{
+package Types{
 }
 
-class Models{
+package Models{
 }
 
 @enduml
