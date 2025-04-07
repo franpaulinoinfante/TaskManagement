@@ -118,6 +118,7 @@ Estas implementaciones son correctas porque aprovechan las fortalezas de cada es
    - .NET 9 Runtime instalado (si no está incluido en el instalador).
 2. Pasos de instalación:
    -	Descargar el instalador: TaskManagementApp.msi o TaskManagementApp.exe
+      - https://1drv.ms/f/s!Ao2-T3T2v5nLhOpgAuki5JqkpmIpHQ?e=WXsIZM	   
 2.	Ejecutar el instalador:
    - Haz doble clic en el archivo setup.msi para iniciar el asistente de instalación.
 3.	Seguir las instrucciones del asistente:
@@ -221,6 +222,3 @@ La clase CategoryNodo es una implementación clave para organizar tareas en un �
 - Flexibilidad: Soporta la asignación de tareas a cualquier categoría dentro del árbol.
 - Recursividad: Utiliza un enfoque recursivo para buscar categorías y asignar tareas, lo que simplifica la navegación en estructuras complejas.  
 Esta implementación es adecuada para sistemas de gestión de tareas donde las categorías y subcategorías son esenciales para organizar la información de manera clara y eficiente.
-
-### Instalador
-https://1drv.ms/f/s!Ao2-T3T2v5nLhOpgAuki5JqkpmIpHQ?e=WXsIZM
