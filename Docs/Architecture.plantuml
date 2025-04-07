@@ -4,18 +4,14 @@
 WinFormsApp --> Controllers
 WinFormsApp --> ViewModels
 WinFormsApp --> Types
-WinFormsApp --> Utils
 
 Controllers --> ViewModels
 Controllers --> Models
 Controllers --> Types
-Controllers --> Utils
 
 ViewModels --> Models
-ViewModels --> Utils
 
 Models --> Types
-Models --> Utils
 
 class WinFormsApp{
 }
@@ -27,9 +23,6 @@ class Controllers{
 }
 
 class Types{
-}
-
-class Utils{
 }
 
 class Models{
