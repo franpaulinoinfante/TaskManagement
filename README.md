@@ -56,7 +56,7 @@ El problema consiste en desarrollar una aplicación de gestión de tareas que pe
 ![image](https://github.com/user-attachments/assets/2e306aa5-0bc0-44fe-b04d-451757e457f5)
 
 ## Use Cases Diagram
-![image](https://github.com/user-attachments/assets/c67713bf-55ec-482d-9213-37da81e98a0d)
+![image](https://github.com/user-attachments/assets/01c7d3eb-6e78-415c-93c3-712f4d15906c)
 
 ### Use Cases Specifications
 
